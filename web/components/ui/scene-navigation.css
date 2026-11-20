@@ -1,0 +1,40 @@
+.scene-zoom {
+  display: flex;
+  align-items: stretch;
+  touch-action: manipulation;
+  gap: 3px;
+  color: #3a3130;
+}
+.scene-zoom .pixel-button {
+  gap: 4px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 3px 6px;
+  font: 700 12px/1 var(--body);
+  font-variant-numeric: tabular-nums;
+}
+.scene-zoom svg {
+  width: 15px;
+  height: 15px;
+}
+.map-viewport > .scene-zoom {
+  position: absolute;
+  right: 16px;
+  top: 78px;
+}
+.map-viewport,
+.room-viewport {
+  touch-action: none;
+  user-select: none;
+}
+.map-viewport[data-dragging] .atlas-landscape,
+.room-viewport[data-dragging],
+.room-viewport[data-dragging] * {
+  cursor: grabbing !important;
+}
+@media (max-width: 719px) {
+  .map-viewport > .scene-zoom {
+    top: 66px;
+    right: 9px;
+  }
+}

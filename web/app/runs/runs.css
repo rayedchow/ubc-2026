@@ -1,0 +1,31 @@
+body:has(.runs-scene) {
+  background: #6c888f;
+  color-scheme: light;
+}
+body:has(.runs-scene) main {
+  display: grid;
+  align-items: safe center;
+  padding-top: clamp(92px, 12vw, 152px);
+  padding-bottom: 24px;
+}
+.runs-scene {
+  --ink: #382b28;
+  --text: #382b28;
+  --text-muted: #635244;
+  --good: #315a39;
+  --live: #36564a;
+  width: min(880px, 100%);
+  margin: 0 auto;
+  color: var(--text);
+}
+body:has(.live-monitor) main {
+  padding-inline: clamp(12px, 3vw, 52px);
+}
+.runs-scene:has(.live-monitor) {
+  width: min(1320px, 100%);
+}
+@media (max-width: 650px) {
+  body:has(.runs-scene) main {
+    padding-bottom: 18px;
+  }
+}

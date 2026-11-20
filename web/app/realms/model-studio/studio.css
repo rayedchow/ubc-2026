@@ -1,0 +1,150 @@
+.model-studio { --ink: #253c36; --rule: #c5c0a5; --buff: #fff4d7; color: var(--ink); }
+.model-studio button, .model-studio select { font: inherit; cursor: pointer; }
+.studio-tools, .eye-tools { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.studio-tools { padding: 0 1px 13px; }
+.view-picker, .eye-tools [role=group] { display: flex; gap: 3px; padding: 3px; border: 1px solid #acb5a1; border-radius: 5px; background: #f0edda; }
+.view-picker button, .eye-tools button { border: 0; background: transparent; padding: 6px 13px; font-size: 14px; font-weight: 700; color: #455b50; border-radius: 3px; }
+.view-picker button[aria-pressed=true], .eye-tools button[aria-pressed=true] { background: #bcd2ab; color: #302e24; }
+.pack-link { color: #365248; font-weight: 700; font-size: 14px; }
+.design-sheet { container-type: inline-size; overflow: hidden; border: 2px solid var(--ink); border-radius: 8px; box-shadow: 0 4px 0 #a99c7d; }
+.design-head, .profile-title, .destination-title, .radio-title, .radar-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.design-head { padding: 21px 28px 19px; }
+.model-studio .design-head h1 { color: inherit; font: 600 clamp(30px, 4vw, 52px)/1 var(--display); letter-spacing: -.055em; }
+.model-studio .design-sheet h2 { color: inherit; font: 600 clamp(26px, 3vw, 40px)/1 var(--display); }
+.design-kicker, .radio-title, .radar-bar>b { font: 700 11px/1.4 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; }
+.design-head .design-kicker { margin-bottom: 5px; }
+.design-head a { color: inherit; font-weight: 700; font-size: 14px; }
+.destination-select { display: flex; align-items: center; gap: 10px; }
+.destination-select>span { font: 700 11px ui-monospace, monospace; letter-spacing: .07em; text-transform: uppercase; }
+.destination-select select { border: 1px solid #8e9e89; border-radius: 4px; font-size: 14px; font-weight: 650; background: #fffaf0; color: #31493d; padding: 4px 22px 4px 8px; }
+.studio-terrain { object-fit: contain; image-rendering: pixelated; display: block; width: 100%; height: 100%; }
+.bot-pad { display: grid; padding: 0; position: relative; border: 0; color: inherit; }
+.bot-platform { display: grid; place-items: center; position: relative; isolation: isolate; }
+.bot-platform::before { content: ""; position: absolute; bottom: 7%; left: 50%; transform: translateX(-50%); width: 43%; height: 8%; background: #42565330; clip-path: polygon(12% 0,88% 0,100% 35%,100% 70%,85% 100%,12% 100%,0 65%,0 35%); }
+.studio-gyms { display: flex; flex-wrap: wrap; gap: 7px; }
+.studio-gyms a { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; font-weight: 700; font-size: 14px; border: 1px solid currentColor; border-radius: 3px; padding: 6px 10px; color: inherit; }
+.studio-gyms a:hover { text-decoration: underline; }
+.studio-roster { display: flex; flex-wrap: wrap; gap: 7px; }
+.studio-roster button { display: inline-flex; gap: 6px; align-items: center; padding: 1px 12px 2px 4px; color: inherit; border: 1px solid var(--rule); border-radius: 4px; font-weight: 700; font-size: 15px; background: #fcf8e5; }
+.studio-roster .bot-art { width: 38px; }
+.studio-roster button[aria-pressed=true] { background: #dce9cc; border: 2px solid #35664a; padding: 0 11px 1px 3px; }
+.eye-tools { margin: 16px 2px 0; }
+.eye-tools b { font-family: var(--display); font-size: 21px; }
+.eye-tools p { font-size: 14px; color: #57645b; }
+
+/* A cream field book with a botanical specimen plate and a perforated map print. */
+.design-journal { background: #fff8e5; }
+.design-journal .design-head { background: #f9edce; border-bottom: 3px double #8d9c7c; }
+.journal-spread { display: grid; grid-template-columns: 1fr 1.08fr; }
+.journal-profile, .journal-map { padding: 18px 27px; }
+.journal-profile { border-right: 4px double #bcb598; background: #fff8e5; }
+.profile-title { align-items: end; margin-bottom: 9px; }
+.profile-title p { color: #5a6859; font-size: 14px; font-weight: 650; }
+.specimen-pad { width: 100%; background-color: #dcebcf; border: 1px solid #92a58c; padding: 4px; }
+.specimen-pad::before, .postage::after { content: ""; position: absolute; inset: 5px; border: 1px solid #879d7d90; pointer-events: none; }
+.specimen-pad, .radar-screen { background-image: linear-gradient(90deg,#66876823 1px, transparent 1px), linear-gradient(#66876823 1px, transparent 1px); background-size: 19px 19px; }
+.specimen-pad .bot-platform { width: min(100%, 222px); margin: auto; }
+.specimen-pad .bot-art { width: 65%; margin: 17.5%; }
+.specimen-pad .bot-platform::after { z-index: -1; content:""; position: absolute; width: 72%; aspect-ratio: 1; border: 1px dashed #7c9e7880; border-radius: 50%; }
+.journal-note { font-size: 14px; margin-top: 9px; color: #4e6053; }
+.journal-map { background: #fcf3d9; display: grid; align-content: center; gap: 11px; }
+.journal-map .destination-select { justify-content: space-between; }
+.postage { height: clamp(150px, 18vw, 212px); padding: 10px 12px 7px; position: relative; background: #c6dfce url('/realms/chart.png') center/cover; border: 5px dashed #fff7de; outline: none; }
+.postage::after { inset: 0; }
+.destination-title span { color: #476047; font: 700 12px ui-monospace,monospace; }
+.journal-footer { border-top: 1px solid #a7ad90; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 27px; background: #f1e8ca; }
+
+/* An instrument console with a navigation grid and a separate signal monitor. */
+.design-dispatch { color: #293d36; background: #d3dfc9; border-color: #182d39; --rule: #53706d; }
+.design-dispatch .design-head { background: #afc7b9; border-bottom: 4px solid #e6ac4d; }
+.design-dispatch .design-kicker, .radio-title { color: #324c3e; }
+.console-indicator { color: #30463c; font: 650 12px ui-monospace, monospace; display:flex; align-items:center; gap: 9px; }
+.console-indicator i { width:8px; height:8px; background:#a4e388; box-shadow: 0 0 0 3px #112f38; }
+.dispatch-body { display: grid; grid-template-columns: 1.85fr 1fr; gap: 12px; padding: 14px; }
+.radar, .transmitter { border: 1px solid #547274; border-radius: 4px; background: #d9e7d8; }
+.radar-bar, .radio-title { padding: 10px 12px; border-bottom: 1px solid #51716e; }
+.radar-bar>b { color: #5e492a; }
+.design-dispatch .destination-select select { background: #f0edd6; color: #293d31; border-color: #6b8c81; }
+.design-dispatch .destination-select>span { color: #3f534a; }
+.radar-screen { padding: 19px 8px 10px; height: clamp(165px, 20vw, 238px); background-color: #284c55; background-image: linear-gradient(90deg,#98d5b62b 1px,transparent 1px),linear-gradient(#98d5b62b 1px,transparent 1px); background-size: 21px 21px; display: grid; grid-template-rows: minmax(0,1fr) auto; gap: 9px; }
+.radar-regions { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; }
+.radar-regions button { justify-self: center; background: #d3dec0; color: #304b3e; border: 1px solid #74988b; border-radius: 2px; font: 600 13px var(--display); padding: 2px 6px; }
+.radar-regions button[aria-pressed=true] { color: #203a3b; background: #efc575; border-color: #efc575; }
+.dispatch-destination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 13px; border-top: 1px solid #56736e; }
+.dispatch-destination .studio-gyms a { border-color: #7c9b8d; font-size: 13px; }
+.transmitter { padding-bottom: 12px; text-align: center; }
+.radio-title { font-size: 11px; }
+.radio-title i { color: #674624; font-style: normal; }
+.monitor-pad { width: calc(100% - 24px); margin: 12px auto 7px; background: repeating-linear-gradient(0deg,#315958,#315958 3px,#355e5a 4px); border-radius: 14px; border: 4px solid #122932; box-shadow: 0 0 0 1px #587974; }
+.monitor-pad .bot-platform { width:min(100%,160px); margin:auto; }
+.monitor-pad .bot-art { width:72%; margin:14%; }
+.transmitter p { color: #3d5147; font-size: 14px; }
+.transmitter .studio-roster { margin-top: 9px; justify-content: center; gap: 4px; }
+.transmitter .studio-roster button { padding: 4px 7px; color: #273f36; background: #c3d2bc; border: 1px solid #69877c; font: 650 12px ui-monospace, monospace; }
+.transmitter .studio-roster button[aria-pressed=true] { background: #efd18b; color: #263e3f; }
+.transmitter .studio-roster .bot-art { display:none; }
+
+/* Three illustrated party cards share the stage like a handheld RPG party screen. */
+.design-party { background: #bdb0d9; color: #342a46; border-color: #453455; }
+.design-party .design-head { background: #c7b6d6; color: #392e43; border-bottom: 4px solid #e6b764; }
+.design-party .design-kicker { color: #554254; }
+.party-count { font: 700 14px var(--display); }
+.party-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; padding: 20px 22px 17px; }
+.party-card { display: grid; place-items: stretch; border: 2px solid #584763; background: var(--shell); box-shadow: 3px 3px 0 #8a759a; border-radius: 5px; }
+.party-card .bot-platform { background-image: radial-gradient(#42264a25 1.5px, transparent 1.5px); background-size: 9px 9px; overflow: hidden; }
+.party-card .bot-platform::after { content: ""; z-index: -1; position: absolute; top: 10%; width: 61%; height: 82%; background: #fff1cc42; clip-path: polygon(13% 0,84% 0,100% 16%,100% 85%,84% 100%,15% 100%,0 83%,0 17%); }
+.party-card .bot-art { width: min(76%,144px); margin: 18px auto; }
+.party-card-label { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1px 8px; padding: 8px 11px; color: #392f46; background: #fff0d0; border-top: 2px solid #66516b; }
+.party-card-label b { font: 600 30px/1 var(--display); }
+.party-card-label small { font-size: 13px; font-weight: 600; }
+.party-card[aria-pressed=true] { outline: none; }
+.party-check { position: absolute; right: 7px; top: 7px; padding: 0px 5px; color: #382b33; background: #ead1a1; font-weight: 800; border-radius: 2px; }
+.party-boarding { margin: 0 22px 18px; display:flex; align-items:center; gap:17px; padding: 10px 15px; background: #f6e8c9; border: 2px solid #68516c; border-radius:5px; }
+.party-boarding .studio-terrain { width: 102px; height: 72px; }
+.party-destination { flex: 1; }
+.party-destination h2 { margin-top: 5px; }
+.party-boarding .studio-gyms a { color: #584064; }
+.model-studio button:focus-visible, .model-studio a:focus-visible, .model-studio select:focus-visible { outline: none; }
+@container (max-width: 700px) {
+  .design-head { padding: 15px; }
+  .journal-profile, .journal-map { padding: 12px; }
+  .journal-spread { grid-template-columns: 1fr 1fr; }
+  .journal-map .destination-select { flex-wrap: wrap; }
+  .journal-footer { padding: 9px 13px; flex-wrap: wrap; }
+  .dispatch-body { grid-template-columns: 1fr; }
+  .transmitter { display:grid; grid-template-columns: 100px 1fr; text-align:left; align-items:center; padding:7px; column-gap:12px; }
+  .radio-title { grid-column:2; padding:0; border:0; }
+  .monitor-pad { grid-row:1/5; grid-column:1; width:100%; margin:0; }
+  .transmitter .studio-roster { justify-content:flex-start; }
+  .party-cards { gap:7px; padding:13px; }
+  .party-card-label { display:grid; padding:5px; justify-content:center; }
+  .party-card-label b { font-size:23px; }
+  .party-card-label small { font-size:11px; }
+  .party-boarding { flex-wrap:wrap; margin:0 12px 12px; gap:7px; }
+}
+@container (max-width: 475px) {
+  .design-head { align-items:end; }
+  .design-head a, .party-count, .console-indicator { font-size:11px; }
+  .journal-spread { grid-template-columns:1fr; }
+  .journal-profile { border-right:0; border-bottom:3px double var(--rule); display:grid; grid-template-columns:1fr 1.2fr; gap:5px 9px; align-items:center; }
+  .journal-note { grid-column:1; grid-row:2; font-size:13px; margin:0; }
+  .specimen-pad { grid-column:2; grid-row:1/3; }
+  .profile-title { margin:0; align-self:end; }
+  .journal-map { gap:7px; }
+  .postage { height:126px; }
+  .journal-footer .design-kicker { display:none; }
+  .radar-bar { align-items:start; gap:6px; }
+  .radar-bar .destination-select>span { display:none; }
+  .dispatch-body { padding:7px; gap:7px; }
+  .radar-screen { height:145px; }
+  .radar-regions button { font-size:10px; }
+  .party-card-label small { min-height:2.4em; }
+  .party-boarding .studio-terrain { width:82px; }
+  .studio-gyms a { font-size:12px; }
+}
+@media (max-width: 560px) {
+  .view-picker button, .eye-tools button { padding:5px 7px; font-size:12px; }
+  .studio-tools { gap:5px; }
+  .pack-link { font-size:12px; }
+  .eye-tools p { font-size:13px; }
+}

@@ -1,0 +1,117 @@
+/* Form controls share the panel's parchment, copper and ink. */
+.pixel-form {
+  min-width: 0;
+}
+input.pixel-input,
+textarea.pixel-textarea,
+body
+  :is(.pixel-form, .field-panel, .search-field, .sea-dialog)
+  :is(input.pixel-input, textarea.pixel-textarea),
+.pixel-select-trigger {
+  font: 550 14px/1.35 var(--body);
+  color: #382e29;
+  background: #fff1d3;
+  border: 2px solid var(--pixel-field-edge);
+  border-radius: 2px;
+  min-width: 0;
+  padding: 7px 9px;
+  box-shadow: inset 0 -2px #bd9e77;
+}
+textarea.pixel-textarea {
+  resize: vertical;
+  min-height: 56px;
+}
+.pixel-radio-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.pixel-radio-group legend {
+  font: 650 13px/1.4 var(--body);
+  color: #4b3b30;
+  margin-bottom: 4px;
+}
+.pixel-radio-group > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.pixel-radio-group .pixel-radio-option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #413326;
+  background: #e7d4b0;
+  border: 2px solid var(--pixel-field-edge);
+  padding: 5px 8px;
+  min-height: 30px;
+  box-shadow: inset 0 -2px #b39573;
+  border-radius: 2px;
+  font: 650 14px var(--display);
+}
+.pixel-radio-group .pixel-radio-option:has(:checked) {
+  background: #edc585;
+  box-shadow: inset 0 -3px #a3794c;
+}
+.pixel-radio-group .pixel-radio-option:has(:focus-visible) {
+  background: #f5d795;
+  text-decoration: underline 2px;
+  text-underline-offset: 3px;
+}
+
+.pixel-select-field {
+  min-width: 0;
+}
+.pixel-select-trigger > span:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pixel-select-trigger > span:last-child {
+  flex: none;
+}
+.pixel-form :is(.fields, .create-pair) .pixel-select-field,
+.split-inputs .pixel-select-field {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+.pixel-form .pixel-radio-option {
+  display: inline-flex;
+  align-items: center;
+}
+
+.pixel-radio-option > input.pixel-radio-input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.sprite-picker img {
+  image-rendering: pixelated;
+}
+.pixel-radio-group.sprite-picker .pixel-radio-option {
+  padding: 3px;
+}
+.sprite-picker .pixel-radio-option:has(:focus-visible) {
+  background: #ffd685;
+  box-shadow: inset 0 -4px #6b4d39;
+}
+
+input.pixel-input:focus-visible,
+textarea.pixel-textarea:focus-visible,
+body :is(.pixel-form, .field-panel, .search-field, .sea-dialog) :is(input.pixel-input, textarea.pixel-textarea):focus-visible,
+button.pixel-select-trigger:focus-visible {
+  background-color: #ffdf9a;
+  text-decoration: none;
+  box-shadow: inset 0 -3px #89663e;
+}

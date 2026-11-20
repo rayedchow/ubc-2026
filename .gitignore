@@ -1,0 +1,4 @@
+silent_ideation/
+.env
+train/.venv/
+__pycache__/

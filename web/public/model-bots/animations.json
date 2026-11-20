@@ -1,0 +1,136 @@
+{
+  "frameSize": 24,
+  "columns": 4,
+  "anchor": [
+    12,
+    12
+  ],
+  "rows": [
+    {
+      "state": "idle",
+      "durationsMs": [
+        1000,
+        100,
+        100,
+        420
+      ]
+    },
+    {
+      "state": "left",
+      "durationsMs": [
+        100,
+        120,
+        240,
+        260
+      ]
+    },
+    {
+      "state": "right",
+      "durationsMs": [
+        100,
+        120,
+        240,
+        260
+      ]
+    },
+    {
+      "state": "up",
+      "durationsMs": [
+        100,
+        120,
+        240,
+        260
+      ]
+    },
+    {
+      "state": "down",
+      "durationsMs": [
+        100,
+        120,
+        240,
+        260
+      ]
+    },
+    {
+      "state": "focus",
+      "durationsMs": [
+        160,
+        180,
+        240,
+        200
+      ]
+    },
+    {
+      "state": "alert",
+      "durationsMs": [
+        100,
+        140,
+        260,
+        230
+      ]
+    },
+    {
+      "state": "happy",
+      "durationsMs": [
+        100,
+        170,
+        220,
+        210
+      ]
+    }
+  ],
+  "models": {
+    "rivet": {
+      "sheet": "rivet-sheet.png",
+      "preview": "rivet.gif"
+    },
+    "pip": {
+      "sheet": "pip-sheet.png",
+      "preview": "pip.gif"
+    },
+    "quill": {
+      "sheet": "quill-sheet.png",
+      "preview": "quill.gif"
+    },
+    "relay": {
+      "sheet": "relay-sheet.png",
+      "preview": "relay.gif"
+    },
+    "mote": {
+      "sheet": "mote-sheet.png",
+      "preview": "mote.gif"
+    },
+    "prism": {
+      "sheet": "prism-sheet.png",
+      "preview": "prism.gif"
+    },
+    "sonar": {
+      "sheet": "sonar-sheet.png",
+      "preview": "sonar.gif"
+    },
+    "patch": {
+      "sheet": "patch-sheet.png",
+      "preview": "patch.gif"
+    },
+    "pounce": {
+      "sheet": "pounce-sheet.png",
+      "preview": "pounce.gif"
+    },
+    "hive": {
+      "sheet": "hive-sheet.png",
+      "preview": "hive.gif"
+    },
+    "orbit": {
+      "sheet": "orbit-sheet.png",
+      "preview": "orbit.gif"
+    },
+    "wick": {
+      "sheet": "wick-sheet.png",
+      "preview": "wick.gif"
+    },
+    "zip": {
+      "sheet": "zip-sheet.png",
+      "preview": "zip.gif"
+    }
+  }
+}

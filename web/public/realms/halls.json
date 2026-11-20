@@ -1,0 +1,44 @@
+{
+  "forge": [
+    {
+      "start": 0,
+      "count": 7476
+    },
+    {
+      "start": 7476,
+      "count": 2136
+    },
+    {
+      "start": 9612,
+      "count": 1968
+    }
+  ],
+  "ledger": [
+    {
+      "start": 11580,
+      "count": 5340
+    },
+    {
+      "start": 16920,
+      "count": 2700
+    },
+    {
+      "start": 19620,
+      "count": 2844
+    }
+  ],
+  "counsel": [
+    {
+      "start": 22464,
+      "count": 7092
+    },
+    {
+      "start": 29556,
+      "count": 2736
+    },
+    {
+      "start": 32292,
+      "count": 2172
+    }
+  ]
+}

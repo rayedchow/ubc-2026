@@ -1,0 +1,930 @@
+{
+  "realms": [
+    {
+      "id": "robotics",
+      "name": "Robotics",
+      "domain": "Robotics",
+      "kit": "forge",
+      "accent": "#b43e22",
+      "description": "Manipulation and navigation in the physical world."
+    },
+    {
+      "id": "finance",
+      "name": "Finance",
+      "domain": "Finance",
+      "kit": "ledger",
+      "accent": "#00765d",
+      "description": "Accounting and treasury operations."
+    },
+    {
+      "id": "legal",
+      "name": "Legal",
+      "domain": "Legal",
+      "kit": "counsel",
+      "accent": "#773fac",
+      "description": "Contract review and case research."
+    }
+  ],
+  "gyms": [
+    {
+      "id": "manipulation",
+      "realm": "robotics",
+      "name": "Manipulation Gym",
+      "description": "Pick up objects and place them beside a target in MiniGrid.",
+      "cents": 12,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "pickup",
+          "name": "Object pickup",
+          "prop": "arm",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "BabyAI-Pickup-v0-11",
+              "prompt": "pick up the purple box",
+              "input": {
+                "environment": "BabyAI-Pickup-v0",
+                "reset_seed": 11,
+                "direction": 3,
+                "agent_position": [
+                  19,
+                  10
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-Pickup-v0-12",
+              "prompt": "pick up a red box",
+              "input": {
+                "environment": "BabyAI-Pickup-v0",
+                "reset_seed": 12,
+                "direction": 3,
+                "agent_position": [
+                  4,
+                  8
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-Pickup-v0-13",
+              "prompt": "pick up a red ball",
+              "input": {
+                "environment": "BabyAI-Pickup-v0",
+                "reset_seed": 13,
+                "direction": 1,
+                "agent_position": [
+                  13,
+                  9
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-Pickup-v0-14",
+              "prompt": "pick up a green box",
+              "input": {
+                "environment": "BabyAI-Pickup-v0",
+                "reset_seed": 14,
+                "direction": 1,
+                "agent_position": [
+                  3,
+                  13
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-Pickup-v0-15",
+              "prompt": "pick up the yellow key",
+              "input": {
+                "environment": "BabyAI-Pickup-v0",
+                "reset_seed": 15,
+                "direction": 2,
+                "agent_position": [
+                  17,
+                  16
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "put-next",
+          "name": "Object placement",
+          "prop": "conveyor",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "BabyAI-PutNextLocal-v0-11",
+              "prompt": "put the red key next to the red box",
+              "input": {
+                "environment": "BabyAI-PutNextLocal-v0",
+                "reset_seed": 11,
+                "direction": 3,
+                "agent_position": [
+                  1,
+                  1
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-PutNextLocal-v0-12",
+              "prompt": "put the grey box next to the grey key",
+              "input": {
+                "environment": "BabyAI-PutNextLocal-v0",
+                "reset_seed": 12,
+                "direction": 3,
+                "agent_position": [
+                  4,
+                  2
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-PutNextLocal-v0-13",
+              "prompt": "put the blue key next to the grey key",
+              "input": {
+                "environment": "BabyAI-PutNextLocal-v0",
+                "reset_seed": 13,
+                "direction": 2,
+                "agent_position": [
+                  4,
+                  4
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-PutNextLocal-v0-14",
+              "prompt": "put the grey box next to the blue ball",
+              "input": {
+                "environment": "BabyAI-PutNextLocal-v0",
+                "reset_seed": 14,
+                "direction": 3,
+                "agent_position": [
+                  6,
+                  6
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-PutNextLocal-v0-15",
+              "prompt": "put the yellow key next to the yellow box",
+              "input": {
+                "environment": "BabyAI-PutNextLocal-v0",
+                "reset_seed": 15,
+                "direction": 0,
+                "agent_position": [
+                  5,
+                  6
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "Farama · MiniGrid BabyAI",
+        "url": "https://minigrid.farama.org/environments/babyai/",
+        "license": "MIT",
+        "edition": "MiniGrid 3.0.0",
+        "collection": "Public training starts generated with the named environment and reset seed."
+      }
+    },
+    {
+      "id": "navigation",
+      "realm": "robotics",
+      "name": "Navigation Gym",
+      "description": "Navigate to objects and doors from reproducible MiniGrid starting positions.",
+      "cents": 8,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "go-to-local",
+          "name": "Navigate to an object",
+          "prop": "route",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "BabyAI-GoToLocal-v0-11",
+              "prompt": "go to the grey key",
+              "input": {
+                "environment": "BabyAI-GoToLocal-v0",
+                "reset_seed": 11,
+                "direction": 3,
+                "agent_position": [
+                  1,
+                  1
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToLocal-v0-12",
+              "prompt": "go to the grey box",
+              "input": {
+                "environment": "BabyAI-GoToLocal-v0",
+                "reset_seed": 12,
+                "direction": 3,
+                "agent_position": [
+                  4,
+                  2
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToLocal-v0-13",
+              "prompt": "go to a red ball",
+              "input": {
+                "environment": "BabyAI-GoToLocal-v0",
+                "reset_seed": 13,
+                "direction": 0,
+                "agent_position": [
+                  6,
+                  6
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToLocal-v0-14",
+              "prompt": "go to the grey box",
+              "input": {
+                "environment": "BabyAI-GoToLocal-v0",
+                "reset_seed": 14,
+                "direction": 2,
+                "agent_position": [
+                  1,
+                  6
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToLocal-v0-15",
+              "prompt": "go to the grey box",
+              "input": {
+                "environment": "BabyAI-GoToLocal-v0",
+                "reset_seed": 15,
+                "direction": 0,
+                "agent_position": [
+                  5,
+                  6
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "go-to-door",
+          "name": "Navigate to a door",
+          "prop": "rover",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "BabyAI-GoToDoor-v0-11",
+              "prompt": "go to the red door",
+              "input": {
+                "environment": "BabyAI-GoToDoor-v0",
+                "reset_seed": 11,
+                "direction": 3,
+                "agent_position": [
+                  9,
+                  10
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToDoor-v0-12",
+              "prompt": "go to the blue door",
+              "input": {
+                "environment": "BabyAI-GoToDoor-v0",
+                "reset_seed": 12,
+                "direction": 1,
+                "agent_position": [
+                  11,
+                  7
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToDoor-v0-13",
+              "prompt": "go to a yellow door",
+              "input": {
+                "environment": "BabyAI-GoToDoor-v0",
+                "reset_seed": 13,
+                "direction": 3,
+                "agent_position": [
+                  9,
+                  8
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToDoor-v0-14",
+              "prompt": "go to the purple door",
+              "input": {
+                "environment": "BabyAI-GoToDoor-v0",
+                "reset_seed": 14,
+                "direction": 3,
+                "agent_position": [
+                  7,
+                  7
+                ]
+              }
+            },
+            {
+              "id": "BabyAI-GoToDoor-v0-15",
+              "prompt": "go to a red door",
+              "input": {
+                "environment": "BabyAI-GoToDoor-v0",
+                "reset_seed": 15,
+                "direction": 1,
+                "agent_position": [
+                  8,
+                  8
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "Farama · MiniGrid BabyAI",
+        "url": "https://minigrid.farama.org/environments/babyai/",
+        "license": "MIT",
+        "edition": "MiniGrid 3.0.0",
+        "collection": "Public training starts generated with the named environment and reset seed."
+      }
+    },
+    {
+      "id": "accounting",
+      "realm": "finance",
+      "name": "Accounting Gym",
+      "description": "Reconcile daily cash flows and balances from the U.S. Treasury’s operating cash account.",
+      "cents": 5,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "financial-statements",
+          "name": "Balance changes",
+          "prop": "statements",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "dts-balance-2024-01-04",
+              "prompt": "How much did the Treasury General Account balance change that day?",
+              "input": {
+                "date": "2024-01-04",
+                "unit": "USD millions",
+                "opening": "743464",
+                "closing": "753179"
+              }
+            },
+            {
+              "id": "dts-balance-2024-01-09",
+              "prompt": "How much did the Treasury General Account balance change that day?",
+              "input": {
+                "date": "2024-01-09",
+                "unit": "USD millions",
+                "opening": "758566",
+                "closing": "749407"
+              }
+            },
+            {
+              "id": "dts-balance-2024-01-12",
+              "prompt": "How much did the Treasury General Account balance change that day?",
+              "input": {
+                "date": "2024-01-12",
+                "unit": "USD millions",
+                "opening": "730305",
+                "closing": "735757"
+              }
+            }
+          ]
+        },
+        {
+          "id": "reconciliation",
+          "name": "Reconciliation",
+          "prop": "reconcile",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "dts-reconcile-2024-01-02",
+              "prompt": "Reconcile the Treasury General Account. What closing balance follows from these cash flows?",
+              "input": {
+                "date": "2024-01-02",
+                "unit": "USD millions",
+                "opening": "768590",
+                "deposits": "449299",
+                "withdrawals": "451549"
+              }
+            },
+            {
+              "id": "dts-reconcile-2024-01-05",
+              "prompt": "Reconcile the Treasury General Account. What closing balance follows from these cash flows?",
+              "input": {
+                "date": "2024-01-05",
+                "unit": "USD millions",
+                "opening": "753179",
+                "deposits": "14713",
+                "withdrawals": "19909"
+              }
+            },
+            {
+              "id": "dts-reconcile-2024-01-10",
+              "prompt": "Reconcile the Treasury General Account. What closing balance follows from these cash flows?",
+              "input": {
+                "date": "2024-01-10",
+                "unit": "USD millions",
+                "opening": "749407",
+                "deposits": "20645",
+                "withdrawals": "42195"
+              }
+            }
+          ]
+        },
+        {
+          "id": "net-cash-flow",
+          "name": "Net cash flow",
+          "prop": "journal",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "dts-cash-2024-01-03",
+              "prompt": "Calculate net cash flow from total deposits and withdrawals.",
+              "input": {
+                "date": "2024-01-03",
+                "unit": "USD millions",
+                "deposits": "16419",
+                "withdrawals": "39295"
+              }
+            },
+            {
+              "id": "dts-cash-2024-01-08",
+              "prompt": "Calculate net cash flow from total deposits and withdrawals.",
+              "input": {
+                "date": "2024-01-08",
+                "unit": "USD millions",
+                "deposits": "30561",
+                "withdrawals": "19977"
+              }
+            },
+            {
+              "id": "dts-cash-2024-01-11",
+              "prompt": "Calculate net cash flow from total deposits and withdrawals.",
+              "input": {
+                "date": "2024-01-11",
+                "unit": "USD millions",
+                "deposits": "275223",
+                "withdrawals": "272773"
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "U.S. Treasury · Daily Treasury Statement",
+        "url": "https://fiscaldata.treasury.gov/datasets/daily-treasury-statement/",
+        "license": "U.S. government data",
+        "edition": "January 2024 · Table I",
+        "collection": "Modélmon exercises using reported cash balances, in millions of USD."
+      }
+    },
+    {
+      "id": "treasury",
+      "realm": "finance",
+      "name": "Treasury Gym",
+      "description": "Trace the composition and daily movement of U.S. public debt.",
+      "cents": 7,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "debt-composition",
+          "name": "Debt composition",
+          "prop": "statements",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "debt-components-2024-01-02",
+              "prompt": "Calculate total public debt outstanding by combining the two holdings.",
+              "input": {
+                "date": "2024-01-02",
+                "unit": "USD",
+                "debt_held_by_public": "26966333707733.52",
+                "intragovernmental_holdings": "7023793814333.31"
+              }
+            },
+            {
+              "id": "debt-components-2024-01-03",
+              "prompt": "Calculate total public debt outstanding by combining the two holdings.",
+              "input": {
+                "date": "2024-01-03",
+                "unit": "USD",
+                "debt_held_by_public": "26967954226517.79",
+                "intragovernmental_holdings": "7026265646050.06"
+              }
+            },
+            {
+              "id": "debt-components-2024-01-04",
+              "prompt": "Calculate total public debt outstanding by combining the two holdings.",
+              "input": {
+                "date": "2024-01-04",
+                "unit": "USD",
+                "debt_held_by_public": "26976928852286.78",
+                "intragovernmental_holdings": "7029342078398.78"
+              }
+            },
+            {
+              "id": "debt-components-2024-01-05",
+              "prompt": "Calculate total public debt outstanding by combining the two holdings.",
+              "input": {
+                "date": "2024-01-05",
+                "unit": "USD",
+                "debt_held_by_public": "26976084404477.05",
+                "intragovernmental_holdings": "7033605651118.76"
+              }
+            },
+            {
+              "id": "debt-components-2024-01-08",
+              "prompt": "Calculate total public debt outstanding by combining the two holdings.",
+              "input": {
+                "date": "2024-01-08",
+                "unit": "USD",
+                "debt_held_by_public": "26973939599749.78",
+                "intragovernmental_holdings": "7038259272542.18"
+              }
+            },
+            {
+              "id": "debt-components-2024-01-09",
+              "prompt": "Calculate total public debt outstanding by combining the two holdings.",
+              "input": {
+                "date": "2024-01-09",
+                "unit": "USD",
+                "debt_held_by_public": "26974750049637.37",
+                "intragovernmental_holdings": "7050025008944.09"
+              }
+            }
+          ]
+        },
+        {
+          "id": "daily-debt-change",
+          "name": "Daily debt change",
+          "prop": "reconcile",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "debt-change-2024-01-11",
+              "prompt": "How much did debt outstanding change between the two reporting dates?",
+              "input": {
+                "unit": "USD",
+                "previous_date": "2024-01-10",
+                "previous_debt": "34002438877490.81",
+                "date": "2024-01-11",
+                "current_debt": "34058513894474.08"
+              }
+            },
+            {
+              "id": "debt-change-2024-01-12",
+              "prompt": "How much did debt outstanding change between the two reporting dates?",
+              "input": {
+                "unit": "USD",
+                "previous_date": "2024-01-11",
+                "previous_debt": "34058513894474.08",
+                "date": "2024-01-12",
+                "current_debt": "34058157809451.17"
+              }
+            },
+            {
+              "id": "debt-change-2024-01-16",
+              "prompt": "How much did debt outstanding change between the two reporting dates?",
+              "input": {
+                "unit": "USD",
+                "previous_date": "2024-01-12",
+                "previous_debt": "34058157809451.17",
+                "date": "2024-01-16",
+                "current_debt": "34061551582176.05"
+              }
+            },
+            {
+              "id": "debt-change-2024-01-17",
+              "prompt": "How much did debt outstanding change between the two reporting dates?",
+              "input": {
+                "unit": "USD",
+                "previous_date": "2024-01-16",
+                "previous_debt": "34061551582176.05",
+                "date": "2024-01-17",
+                "current_debt": "34060163447630.43"
+              }
+            },
+            {
+              "id": "debt-change-2024-01-18",
+              "prompt": "How much did debt outstanding change between the two reporting dates?",
+              "input": {
+                "unit": "USD",
+                "previous_date": "2024-01-17",
+                "previous_debt": "34060163447630.43",
+                "date": "2024-01-18",
+                "current_debt": "34069900131753.02"
+              }
+            },
+            {
+              "id": "debt-change-2024-01-19",
+              "prompt": "How much did debt outstanding change between the two reporting dates?",
+              "input": {
+                "unit": "USD",
+                "previous_date": "2024-01-18",
+                "previous_debt": "34069900131753.02",
+                "date": "2024-01-19",
+                "current_debt": "34072342032939.15"
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "U.S. Treasury · Debt to the Penny",
+        "url": "https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/",
+        "license": "U.S. government data",
+        "edition": "January 2024",
+        "collection": "Modélmon exercises using published daily debt balances, in USD."
+      }
+    },
+    {
+      "id": "contracts",
+      "realm": "legal",
+      "name": "Contract Review Gym",
+      "description": "Review contract excerpts for governing law, renewal and assignment clauses.",
+      "cents": 9,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "governing-law",
+          "name": "Governing Law",
+          "prop": "scales",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "cuad-governing-law-0",
+              "prompt": "Identify the governing law provision in this excerpt.",
+              "input": {
+                "document": "LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT",
+                "source_record": "LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT__Governing Law_0",
+                "excerpt": "this Agreement is the consequence of Force Majeure as defined in Section 2.2 hereunder. 6.9 Governing Law. This Agreement is to be construed according to the laws of the State of Illinois. 7. NEW PRODUCTS 7.1 Right of Option. Should Company introduce other products or devices as conte"
+              }
+            },
+            {
+              "id": "cuad-governing-law-1",
+              "prompt": "Identify the governing law provision in this excerpt.",
+              "input": {
+                "document": "WHITESMOKE,INC_11_08_2011-EX-10.26-PROMOTION AND DISTRIBUTION AGREEMENT",
+                "source_record": "WHITESMOKE,INC_11_08_2011-EX-10.26-PROMOTION AND DISTRIBUTION AGREEMENT__Governing Law_0",
+                "excerpt": "Signed by the parties on the dates shown below. *Confidential treatment requested Google Confidential 11.10 Governing Law. This Agreement is governed by English law and the parties submit to the exclusive jurisdiction of the English courts in relation to any dispute (contractual or non-contractual) concerning this Agreement save that either party may apply to any court for an injunction or other relief to protect its Intellectual Property Rights. If this Agreement is translated into any other language, if there is conflict the English text will take precedence. 11.11 Counterparts."
+              }
+            },
+            {
+              "id": "cuad-governing-law-3",
+              "prompt": "Identify the governing law provision in this excerpt.",
+              "input": {
+                "document": "ADAMSGOLFINC_03_21_2005-EX-10.17-ENDORSEMENT AGREEMENT",
+                "source_record": "ADAMSGOLFINC_03_21_2005-EX-10.17-ENDORSEMENT AGREEMENT__Governing Law_0",
+                "excerpt": "respect to the construction of this Agreement, it is to be construed as though such section headings had been omitted. 25. APPLICABLE LAW This Agreement shall be governed and construed according to the laws of the State of Kansas. 26. ENTIRE AGREEMENT The provisions of this Agreement are intended by the parties as a complete, conclusive and final expression of their"
+              }
+            }
+          ]
+        },
+        {
+          "id": "renewal-term",
+          "name": "Renewal Term",
+          "prop": "catalogue",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "cuad-renewal-term-0",
+              "prompt": "Identify the renewal term provision in this excerpt.",
+              "input": {
+                "document": "LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT",
+                "source_record": "LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT__Renewal Term_0",
+                "excerpt": "upon which the Company delivers to Distributor the last Sample, as defined hereinafter. If Distributor complies with all of the terms of this Agreement, the Agreement shall be renewable on an annual basis for one (1) year terms for up to another ten (10) years on the same terms and conditions as set forth herein. All renewals of this Agreement shall be on the same terms and conditions as are set"
+              }
+            },
+            {
+              "id": "cuad-renewal-term-7",
+              "prompt": "Identify the renewal term provision in this excerpt.",
+              "input": {
+                "document": "FTENETWORKS,INC_02_18_2016-EX-99.4-STRATEGIC ALLIANCE AGREEMENT",
+                "source_record": "FTENETWORKS,INC_02_18_2016-EX-99.4-STRATEGIC ALLIANCE AGREEMENT__Renewal Term_0",
+                "excerpt": "in in effect for the duration of the Initial Term, unless earlier terminated pursuant to the provision entitled \"Termination of Agreement\". After the Initial Term, this Agreement shall continue on a month to month basis until terminated by either party upon thirty (30) days prior written notice to the other setting forth the effective date of such termination. The termination of any Purchase Order shall not affect the obligations of either party to the other party pursuant to any other Purchase Or"
+              }
+            },
+            {
+              "id": "cuad-renewal-term-14",
+              "prompt": "Identify the renewal term provision in this excerpt.",
+              "input": {
+                "document": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement",
+                "source_record": "SIBANNAC,INC_12_04_2017-EX-2.1-Strategic Alliance Agreement__Renewal Term_0",
+                "excerpt": "ential and to ensure that such employees, agents, and/or assistants are familiar with and abide by the terms of this Agreement. 7) Term The term of this Agreement is twelve (12) months from the date hereof, and will be automatically renewed for one (1) additional twelve month period unless either party shall notify the other in writing of its intention not to renew. Such notice must be given ninety (90) days prior to expiration of the original term. This Agreement may also be terminated by either party"
+              }
+            }
+          ]
+        },
+        {
+          "id": "anti-assignment",
+          "name": "Anti-Assignment",
+          "prop": "redline",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "cuad-anti-assignment-0",
+              "prompt": "Identify the anti-assignment provision in this excerpt.",
+              "input": {
+                "document": "LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT",
+                "source_record": "LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT__Anti-Assignment_0",
+                "excerpt": "een notified of the default by the other party and (c) as otherwise expressly provided herein. In the event either party (a) becomes adjudicated insolvent, (b) discontinues its business, (c) has voluntary of involuntary bankruptcy proceedings instituted against it, or (d) makes an assignment for the benefit of creditors, the other party shall be entitled to terminate this Agreement effective immediately upon written notice. 4.3 Accrued Obligations. In the event that either Distributor or Company fails to comply with the terms"
+              }
+            },
+            {
+              "id": "cuad-anti-assignment-1",
+              "prompt": "Identify the anti-assignment provision in this excerpt.",
+              "input": {
+                "document": "WHITESMOKE,INC_11_08_2011-EX-10.26-PROMOTION AND DISTRIBUTION AGREEMENT",
+                "source_record": "WHITESMOKE,INC_11_08_2011-EX-10.26-PROMOTION AND DISTRIBUTION AGREEMENT__Anti-Assignment_0",
+                "excerpt": "writing, addressed to the other party's primary contact and sent to their then current postal address or email address. 11.3 Assignment. [ * ] may [ * ]any of its rights or obligations under this Agreement without the prior written consent of [ * ]. For the avoidance of doubt, a Change of Control shall be deemed an assignment hereunder unless [ * ] does not exercise its [ * ]. 11.4 Fo"
+              }
+            },
+            {
+              "id": "cuad-anti-assignment-3",
+              "prompt": "Identify the anti-assignment provision in this excerpt.",
+              "input": {
+                "document": "ADAMSGOLFINC_03_21_2005-EX-10.17-ENDORSEMENT AGREEMENT",
+                "source_record": "ADAMSGOLFINC_03_21_2005-EX-10.17-ENDORSEMENT AGREEMENT__Anti-Assignment_0",
+                "excerpt": "thing herein contained shall give or is intended to give any rights of any kind to any third person. 31. ASSIGNMENT AND CHANGE OF CONTROL Neither ADAMS GOLF nor CONSULTANT shall have the right to grant sublicenses hereunder or to assign, alienate or otherwise transfer any of its rights or obligations hereunder. 32. CONFIDENTIALITY Both parties understand that the contents of this Agreement, including, but not limited to, all amounts paid or to be"
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "The Atticus Project · CUAD",
+        "url": "https://github.com/TheAtticusProject/cuad",
+        "license": "CC BY 4.0",
+        "edition": "CUAD v1 · train",
+        "collection": "Contract excerpts and class names from the published training split. Prompts adapted for excerpt review."
+      }
+    },
+    {
+      "id": "research",
+      "realm": "legal",
+      "name": "Case Research Gym",
+      "description": "Identify reporter citations and docket numbers in Supreme Court opinion captions.",
+      "cents": 10,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "citation-checking",
+          "name": "Reporter citations",
+          "prop": "books",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "lexglue-scotus-train-0",
+              "prompt": "Separate the U.S. Reports citation into volume, reporter and first page.",
+              "input": {
+                "source_row": 0,
+                "caption": "329 U.S. 29\n67 S.Ct. 1\n91 L.Ed. 22\nCHAMPLIN REFINING COv.UNITED STATES et al.\nNo. 21.\nArgued Oct. 18, 21, 1946.\nDecided Nov. 18, 1946."
+              }
+            },
+            {
+              "id": "lexglue-scotus-train-1",
+              "prompt": "Separate the U.S. Reports citation into volume, reporter and first page.",
+              "input": {
+                "source_row": 1,
+                "caption": "329 U.S. 1\n67 S.Ct. 6\n91 L.Ed. 3\nHALLIBURTON OIL WELL CEMENTING CO.v.WALKER, et al.\nNo. 24.\nArgued Oct. 23, 24, 1946.\nDecided Nov. 18, 1946."
+              }
+            },
+            {
+              "id": "lexglue-scotus-train-2",
+              "prompt": "Separate the U.S. Reports citation into volume, reporter and first page.",
+              "input": {
+                "source_row": 2,
+                "caption": "329 U.S. 14\n67 S.Ct. 13\n91 L.Ed. 12\nCLEVELAND et al.v.UNITED STATES (three cases).  DARGER  v.  SAME.  JESSOP  v.  SAME.  DOCKSTADER  v.  SAME.  STUBBS  v.  SAME.  PETTY  v.  SAME.\nNos. 12 to 19.\nArgued Oct. 17, 1946.\nDecided Nov. 18, 1946."
+              }
+            },
+            {
+              "id": "lexglue-scotus-train-3",
+              "prompt": "Separate the U.S. Reports citation into volume, reporter and first page.",
+              "input": {
+                "source_row": 3,
+                "caption": "329 U.S. 40\n67 S.Ct. 167\n91 L.Ed. 29\nUNITED STATESv.ALCEA BAND OF TILLAMOOKS et al.\nNo. 26.\nReargued Oct. 25, 1946.\nDecided Nov. 25, 1946."
+              }
+            }
+          ]
+        },
+        {
+          "id": "docket-reading",
+          "name": "Docket identification",
+          "prop": "catalogue",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "lexglue-scotus-train-4",
+              "prompt": "Identify the Supreme Court docket number or numbers in this caption.",
+              "input": {
+                "source_row": 4,
+                "caption": "329 U.S. 90\n67 S.Ct. 133\n91 L.Ed. 103\nAMERICAN POWER & LIGHT CO.v.SECURITIES & EXCHANGE COMMISSION.  ELECTRIC POWER & LIGHT CORPORATION  v.  SAME.\nNos. 4, 5.\nReargued Oct. 14, 15, 1946.\nDecided Nov. 25, 1946."
+              }
+            },
+            {
+              "id": "lexglue-scotus-train-5",
+              "prompt": "Identify the Supreme Court docket number or numbers in this caption.",
+              "input": {
+                "source_row": 5,
+                "caption": "329 U.S. 64\n67 S.Ct. 154\n91 L.Ed. 44\nUNITED STATESv.HOWARD P. FOLEY CO., Inc.\nNo. 50.\nArgued Oct. 25, 1946.\nDecided Nov. 25, 1946."
+              }
+            },
+            {
+              "id": "lexglue-scotus-train-6",
+              "prompt": "Identify the Supreme Court docket number or numbers in this caption.",
+              "input": {
+                "source_row": 6,
+                "caption": "329 U.S. 69\n67 S.Ct. 156\n91 L.Ed. 80\nRICHFIELD OIL CORPORATIONv.STATE BOARD OF EQUALIZATION.\nNo. 46.\nArgued Oct. 24, 1946.\nDecided Nov. 25, 1946."
+              }
+            },
+            {
+              "id": "lexglue-scotus-train-7",
+              "prompt": "Identify the Supreme Court docket number or numbers in this caption.",
+              "input": {
+                "source_row": 7,
+                "caption": "329 U.S. 187\n67 S.Ct. 261\n91 L.Ed. 181\nBALLARD et al.v.UNITED STATES.\nNo. 37.\nArgued Oct. 15, 1946.\nDecided Dec. 9, 1946."
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "LexGLUE · SCOTUS",
+        "url": "https://huggingface.co/datasets/coastalcph/lex_glue",
+        "license": "CC BY 4.0",
+        "edition": "SCOTUS · train · c23fdff",
+        "collection": "Modélmon citation exercises based on the captions of published U.S. Supreme Court opinions."
+      }
+    }
+  ]
+}

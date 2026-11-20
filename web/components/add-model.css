@@ -1,0 +1,25 @@
+.collection-add {
+  color-scheme: light;
+  background: #ffedce;
+  color: #40322f;
+  border: 3px solid #493744;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 2px #fff6e4,
+    4px 6px #2b232b;
+  max-height: 88dvh;
+  margin: auto;
+  overflow: auto;
+}
+.collection-add .preview {
+  background: #91aa99;
+  border-radius: 2px;
+}
+.collection-add :is(label, legend, h2) {
+  color: #3a312f;
+}
+@media (max-width: 720px) {
+  .collection-add .modal-body {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modélmon Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/pixel-sheet.css">
+<link rel="stylesheet" href="assets/run-monitor.css">
+<style>
+:root {
+  --text: #322e2c;
+  --muted: #554b40;
+  --ink: #382e29;
+  --action: #f5d78e;
+  --live: #19574e;
+  --good: #245c3d;
+  --bad: #802e32;
+  --warn: #77431e;
+  --grass: #74ad98;
+  --line: #bd9b74;
+  --outline: #3b2f25;
+  --display: "Pixelify Sans", system-ui, sans-serif;
+  --body: "Figtree", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+html { background: #9fbcc0; }
+body {
+  color: var(--text);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "clig" 0;
+  cursor: default;
+}
+/* Static tile from the Gym atlas open-water palette and ripple pattern. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: url("assets/atlas-water.png") center / 1410px 896px repeat;
+  image-rendering: pixelated;
+}
+body.idle { cursor: none; }
+h1, h2, h3, p { margin: 0; }
+img.px, .px img, svg.spr { image-rendering: pixelated; }
+svg.spr { display: block; shape-rendering: crispEdges; }
+.num { font-family: var(--body); font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--mono); }
+
+/* ---------- stage ---------- */
+#stage {
+  position: absolute; left: 50%; top: 50%;
+  width: 1600px; height: 900px;
+  transform: translate(-50%, -50%) scale(var(--s, 1));
+  transform-origin: center;
+}
+.slide {
+  position: absolute; inset: 0;
+  padding: 76px 96px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity .42s ease, transform .42s ease, visibility 0s linear .42s;
+}
+.slide.active {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity .42s ease, transform .42s ease;
+}
+
+/* ---------- shared pieces ---------- */
+/* The deck loads the app's PixelSheet and run-monitor styles directly.
+   Keep the component frames flat and scale their contents for the 1600px stage. */
+.slide :is(.pixel-sheet, .budget-ledger) { box-shadow: none; }
+.slide .pixel-sheet { overflow: hidden; }
+.slide .monitor-strip {
+  flex: none;
+  align-self: stretch;
+  margin-inline: calc(-1 * var(--gutter, 0px));
+  padding: 14px 24px;
+  font-size: 30px;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.slide .monitor-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #9b7d5b;
+  padding: 5px 12px;
+  color: #41352c;
+  font: 600 21px/1.15 var(--display);
+}
+.slide .monitor-state[data-active="true"] { border-color: #728663; color: #315040; }
+.slide .monitor-state.gold { background: #ffd682; border-color: #a77b43; }
+.slide .monitor-state.error { background: #f2d2be; border-color: #a16c55; color: #753326; }
+.title {
+  font-family: var(--display); font-weight: 600;
+  font-size: 62px; line-height: 1.08; color: var(--ink);
+  letter-spacing: .3px;
+}
+.kicker {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--body); font-weight: 800;
+  font-size: 19px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--live); margin-bottom: 12px;
+}
+.lane-label {
+  font-family: var(--display); font-weight: 600; font-size: 34px; color: var(--ink);
+}
+.cap { font-size: 24px; color: var(--muted); line-height: 1.35; }
+
+/* Outlined paper vouchers and transaction cards */
+.pxbox {
+  border-width: 2px;
+}
+
+/* arrows */
+.arrow { position: relative; display: flex; align-items: center; color: var(--muted); }
+.arrow .shaft {
+  flex: 1; height: 8px;
+  background: repeating-linear-gradient(90deg, currentColor 0 16px, transparent 16px 24px);
+}
+.arrow.rev { flex-direction: row-reverse; }
+.arrow .packet {
+  position: absolute; top: 50%; width: 16px; height: 16px; margin-top: -8px;
+  background: var(--action); border: 3px solid var(--outline);
+  animation: travel 2.4s linear infinite;
+}
+.arrow.rev .packet { animation-name: travel-rev; }
+@keyframes travel { from { left: 0%; opacity: 0; } 12% { opacity: 1; } 85% { opacity: 1; } to { left: calc(100% - 30px); opacity: 0; } }
+@keyframes travel-rev { from { left: calc(100% - 30px); opacity: 0; } 12% { opacity: 1; } 85% { opacity: 1; } to { left: 14px; opacity: 0; } }
+.arrow-label {
+  font-family: var(--display); font-size: 26px; font-weight: 500; color: var(--muted);
+  text-align: center; margin-bottom: 10px;
+}
+
+.stagger > * { opacity: 0; transform: translateY(10px); }
+.slide.active .stagger > * { animation: rise .45s ease forwards; }
+.slide.active .stagger > *:nth-child(1) { animation-delay: .25s; }
+.slide.active .stagger > *:nth-child(2) { animation-delay: .55s; }
+.slide.active .stagger > *:nth-child(3) { animation-delay: .85s; }
+.slide.active .stagger > *:nth-child(4) { animation-delay: 1.15s; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ===== 1. Title ===== */
+.s1 .left { position: absolute; left: 110px; top: 150px; width: 760px; }
+.s1 .logo { width: 740px; display: block; margin-left: -18px; }
+.s1 .tagline {
+  font-family: var(--display); font-weight: 600; font-size: 74px; color: var(--ink);
+  margin-top: 26px; line-height: 1;
+}
+.s1 .subline { font-size: 31px; color: var(--muted); margin-top: 22px; line-height: 1.4; font-weight: 500; }
+.s1 .chip { position: absolute; left: 110px; bottom: 84px; }
+.island-wrap { position: absolute; animation: bob 5s ease-in-out infinite; }
+.island-wrap .island { position: absolute; inset: 0; width: 100%; image-rendering: pixelated; }
+.island-wrap .who { position: absolute; image-rendering: pixelated; }
+.s1 .island-wrap { right: 70px; top: 200px; width: 700px; height: 494px; }
+
+/* ===== 2. Problem ===== */
+.s2 .question {
+  max-width: 1100px; margin-top: 24px;
+  font: 500 32px/1.4 var(--body); color: var(--ink);
+}
+.s2 .comparison {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 42px;
+}
+.s2 .result p { padding: 30px; font: 500 33px/1.35 var(--body); }
+.s2 .protected .monitor-strip { background: #c7d6ab; border-bottom-color: #728663; }
+.s2 .source {
+  display: inline-block; margin-top: 36px; font: 650 23px/1.4 var(--body);
+  color: var(--ink); text-underline-offset: 5px;
+}
+.s2 .source:hover, .s2 .source:focus-visible { text-decoration-thickness: 3px; }
+
+/* ===== 3. Idea ===== */
+.s3 .diagram { position: absolute; left: 96px; right: 96px; top: 270px; height: 440px; display: flex; align-items: stretch; }
+.s3 .lane { width: 350px; --gutter: 28px; padding: 0 var(--gutter) 24px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.s3 .lane .art { flex: 1; display: flex; align-items: center; justify-content: center; gap: 14px; }
+.s3 .gap { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 70px; padding: 0 18px; }
+.s3 .sealed-rows { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; width: 100%; }
+.s3 .sealed-rows .r { display: flex; align-items: center; gap: 14px; font-size: 21px; color: var(--muted); font-weight: 600; }
+.s3 .sealed-rows .r span { width: 132px; text-align: right; }
+.s3 .bar-black { height: 20px; background: #24201d; flex: 1; }
+.s3 .scc { position: absolute; left: 50%; transform: translateX(-50%); top: 740px; }
+.s3 .lane .monitor-strip { justify-content: center; }
+.s3 .grader .monitor-strip { background: #c7d6ab; border-bottom-color: #728663; }
+
+/* ===== 4. Cheat ===== */
+.s4 .leftcol { position: absolute; left: 96px; top: 280px; width: 640px; display: flex; flex-direction: column; gap: 30px; }
+.s4 .diff { padding: 0; overflow: hidden; }
+.s4 .diff .ln { font-family: var(--mono); font-size: 32px; padding: 14px 26px; }
+.s4 .diff .del { color: var(--muted); background: rgb(85 75 64 / .07); }
+.s4 .diff .add { color: var(--bad); background: rgb(128 46 50 / .1); font-weight: 700; }
+.s4 .fp { --gutter: 26px; padding: 0 var(--gutter) 20px; display: flex; flex-direction: column; gap: 14px; }
+.s4 .fp .row { display: flex; align-items: center; gap: 18px; }
+.s4 .fp .row .k { width: 130px; font-size: 24px; font-weight: 700; }
+.s4 .fp .row .h { font-family: var(--mono); font-size: 30px; letter-spacing: 1px; padding: 6px 14px; border-radius: 2px; }
+.s4 .fp .ok .k { color: var(--good); } .s4 .fp .ok .h { background: rgb(36 92 61 / .1); color: var(--good); }
+.s4 .fp .no .k { color: var(--bad); } .s4 .fp .no .h { background: rgb(128 46 50 / .1); color: var(--bad); }
+.s4 .chain { position: absolute; left: 800px; right: 96px; top: 280px; --gutter: 30px; padding: 0 var(--gutter) 12px; }
+.s4 .chain .hd img { width: 40px; }
+.s4 .chain .hd span { font-family: var(--display); font-size: 32px; font-weight: 600; color: var(--ink); }
+.s4 .tx { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; border-bottom: 1.5px solid var(--line); }
+.s4 .tx:last-child { border-bottom: 0; }
+.s4 .tx .what { font-size: 27px; font-weight: 600; color: var(--text); }
+.s4 .tx .err { font-family: var(--mono); font-size: 21px; color: var(--bad); margin-top: 6px; }
+
+/* ===== 5. Payments ===== */
+.s5 .flow { position: absolute; left: 96px; right: 96px; top: 270px; height: 420px; display: flex; align-items: stretch; }
+.s5 .step { --gutter: 26px; padding: 0 var(--gutter) 24px; display: flex; flex-direction: column; }
+.s5 .step .top { display: flex; align-items: center; justify-content: space-between; }
+.s5 .step .n { font-family: var(--display); font-size: 32px; font-weight: 600; color: var(--ink); }
+.s5 .step .big { font-size: 64px; font-weight: 800; color: var(--ink); line-height: 1; }
+.s5 .step .cap { font-size: 22px; margin-top: 10px; }
+.s5 .gap { width: 64px; display: flex; align-items: center; padding: 0 8px; }
+.s5 .s-dep { width: 330px; }
+.s5 .s-rep { width: 400px; }
+.s5 .s-set { flex: 1; }
+.s5 .ill { flex: 1; display: flex; align-items: center; justify-content: center; }
+.vouchers { position: relative; width: 300px; height: 150px; }
+.vouchers .pxbox { position: absolute; width: 270px; height: 100px; padding: 14px 18px; }
+.vouchers .v1 { left: 30px; top: 0; opacity: .5; }
+.vouchers .v2 { left: 15px; top: 18px; opacity: .75; }
+.vouchers .v3 { left: 0; top: 36px; }
+.vouchers .v3 .lbl { font-size: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+.vouchers .v3 .tot { font-size: 46px; font-weight: 800; color: var(--live); line-height: 1.1; margin-top: 4px; }
+.split { width: 100%; }
+.split .bar { display: flex; height: 46px; width: 100%; border-radius: 2px; overflow: hidden; border: 3px solid var(--outline); }
+.split .bar div { height: 100%; }
+.split .legend { display: grid; grid-template-columns: 1fr auto auto; gap: 8px 16px; margin-top: 18px; font-size: 22px; align-items: center; }
+.split .legend .sw { display: inline-block; width: 16px; height: 16px; margin-right: 10px; vertical-align: -1px; }
+.split .legend .pct { color: var(--muted); font-weight: 600; text-align: right; }
+.split .legend .amt { font-weight: 800; text-align: right; }
+.split .refund { margin-top: 14px; padding-top: 12px; border-top: 2px solid var(--line); display: grid; grid-template-columns: 1fr auto; font-size: 22px; color: var(--muted); }
+.split .refund .amt { font-weight: 800; color: var(--text); }
+.s5 .note { position: absolute; left: 0; right: 0; top: 740px; display: flex; justify-content: center; align-items: center; gap: 14px; font-size: 24px; color: var(--muted); font-weight: 600; }
+
+/* ===== 6. Case study ===== */
+.s6 { padding: 60px 80px; }
+.kicker .monitor-state { font-size: 18px; letter-spacing: 0; }
+.s6 .title { font-size: 52px; }
+.s6 .setup { display: flex; gap: 12px; margin-top: 20px; flex-wrap: nowrap; }
+.s6 .setup .chip { display: inline-block; font: 600 19px/1.25 var(--body); padding: 7px 12px; }
+.s6 .setup .chip b { color: var(--ink); }
+.s6 .main { position: absolute; left: 80px; right: 80px; top: 290px; height: 440px; display: flex; gap: 28px; }
+.s6 .gym { width: 410px; --gutter: 24px; padding: 0 var(--gutter) 18px; display: flex; flex-direction: column; }
+.s6 .panel-hd { font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--ink); }
+.s6 .panel-sub { font-size: 18px; color: var(--muted); margin-top: 12px; }
+.s6 .txcard { margin: 22px 4px 0; padding: 16px 18px; font-size: 19px; }
+.s6 .txcard .req { color: var(--muted); font-weight: 600; font-size: 17px; white-space: nowrap; }
+.s6 .txcard .req b { color: var(--text); }
+.s6 .txcard .ins { font-family: var(--mono); font-size: 17px; margin-top: 10px; padding-top: 10px; border-top: 2px dashed rgb(59 47 37 / .25); line-height: 1.6; color: var(--text); }
+.s6 .txcard .ins .hl { background: rgb(128 46 50 / .14); color: var(--bad); font-weight: 700; padding: 0 3px; }
+.s6 .answer { display: flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 18px; color: var(--muted); font-weight: 600; }
+.s6 .answer .monitor-state { font-size: 18px; }
+.s6 .formula { margin-top: auto; font-size: 18px; color: var(--muted); line-height: 1.5; }
+.s6 .formula b { color: var(--text); }
+.s6 .chart { flex: 1; --gutter: 24px; padding: 0 var(--gutter) 18px; display: flex; flex-direction: column; }
+.s6 .chart .rows { position: relative; flex: 1; margin-top: 18px; display: flex; flex-direction: column; justify-content: space-around; }
+.s6 .chart .grid { position: absolute; left: 170px; right: 70px; top: 0; bottom: 0; }
+.s6 .chart .grid i { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1.5px dashed rgb(75 55 42 / .2); }
+.s6 .crow { position: relative; display: flex; align-items: center; height: 52px; }
+.s6 .crow .lab { width: 170px; padding-right: 18px; text-align: right; font-size: 20px; font-weight: 600; color: var(--muted); line-height: 1.1; }
+.s6 .crow.hero .lab { color: var(--mean-ink); font-weight: 800; }
+.s6 .crow.mid .lab { color: var(--ink); }
+.s6 .crow .track { position: relative; flex: 1; margin-right: 70px; height: 100%; }
+.s6 .crow .b {
+  position: absolute; left: 0; top: 8px; bottom: 8px; width: 0; border: 1px solid #896746;
+  transition: width .9s cubic-bezier(.2,.7,.2,1);
+}
+.slide.active .crow .b { width: var(--w); }
+.s6 .crow.base .b { background: rgb(85 75 64 / .25); top: 13px; bottom: 13px; }
+.s6 .crow.mid .b { background: var(--rollout-ink); }
+.s6 .crow.hero .b { background: var(--mean-ink); top: 4px; bottom: 4px; }
+.s6 .crow .ci { position: absolute; top: 50%; height: 3px; margin-top: -1.5px; background: var(--text); opacity: 0; transition: opacity .4s ease 1s; }
+.s6 .crow .ci::before, .s6 .crow .ci::after { content: ""; position: absolute; top: -9px; width: 3px; height: 21px; background: var(--text); }
+.s6 .crow .ci::before { left: 0; } .s6 .crow .ci::after { right: 0; }
+.slide.active .crow .ci { opacity: .8; }
+.s6 .crow .val { position: absolute; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: 800; color: var(--muted); white-space: nowrap; opacity: 0; transition: opacity .4s ease 1s; }
+.s6 .crow .val small { font-size: 16px; font-weight: 600; }
+.slide.active .crow .val { opacity: 1; }
+.s6 .crow.hero .val { color: var(--mean-ink); font-size: 30px; }
+.s6 .crow.mid .val { color: var(--ink); }
+.s6 .axis { position: relative; margin-left: 170px; margin-right: 70px; height: 26px; margin-top: 6px; border-top: 2px solid rgb(75 55 42 / .35); }
+.s6 .axis span { position: absolute; top: 4px; transform: translateX(-50%); font-size: 16px; color: var(--muted); font-weight: 600; }
+.s6 .metrics { width: 300px; display: flex; flex-direction: column; gap: 20px; }
+.s6 .delta { padding: 26px 20px 22px; text-align: center; background: #c7d6ab; color: var(--live); }
+.s6 .delta .num { font-size: 80px; font-weight: 800; line-height: 1; white-space: nowrap; }
+.s6 .delta .num small { font-size: 34px; font-weight: 700; margin-left: 6px; }
+.s6 .delta .lbl { font-size: 18px; font-weight: 600; opacity: .85; margin-top: 6px; }
+.s6 .sub { flex: 1; padding: 14px 24px; display: flex; flex-direction: column; justify-content: center; }
+.s6 .sub .k { font-size: 19px; font-weight: 600; color: var(--muted); }
+.s6 .sub .v { display: flex; align-items: baseline; gap: 12px; margin-top: 4px; }
+.s6 .sub .from { font-size: 30px; font-weight: 700; color: var(--muted); }
+.s6 .sub .to { font-size: 40px; font-weight: 800; color: var(--live); }
+.s6 .sub .spr { align-self: center; color: var(--muted); }
+.s6 .footer { position: absolute; left: 80px; right: 80px; top: 758px; padding: 16px 26px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.s6 .footer .claim { font-size: 20px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 12px; }
+.s6 .footer .meta { display: flex; align-items: center; gap: 18px; font-size: 19px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+.s6 .footer .meta .mono { font-size: 18px; color: var(--ink); background: rgb(28 48 80 / .08); padding: 3px 10px; border-radius: 6px; }
+
+/* ===== 7. Close ===== */
+.s7 { text-align: center; }
+.s7 .logo { width: 720px; display: block; margin: 40px auto 0; }
+.s7 .closing-message { width: fit-content; max-width: 100%; margin: 32px auto 0; padding: 22px 34px; }
+.s7 .line { font-family: var(--display); font-size: 50px; font-weight: 600; color: var(--ink); }
+.s7 .small { font-size: 30px; color: var(--muted); margin-top: 16px; font-weight: 500; }
+.s7 .party { position: absolute; left: 0; right: 0; bottom: 130px; display: flex; justify-content: center; gap: 30px; align-items: flex-end; }
+.s7 .party img { width: 108px; image-rendering: pixelated; animation: bob 3.2s ease-in-out infinite; }
+.s7 .party img:nth-child(2) { animation-delay: -.6s; }
+.s7 .party img:nth-child(3) { animation-delay: -1.2s; }
+.s7 .party img:nth-child(4) { animation-delay: -1.8s; }
+.s7 .party img:nth-child(5) { animation-delay: -2.4s; }
+.s7 .party img:nth-child(6) { animation-delay: -3s; }
+.s7 .party img.sage { width: 80px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="pixel-arrow-right" viewBox="0 0 14 14">
+    <path fill="currentColor" d="M1 6h6V2h2v2h2v2h2v2h-2v2H9v2H7V8H1z"/>
+  </symbol>
+</svg>
+<div id="stage">
+
+  <!-- 1. Title -->
+  <section class="slide s1">
+    <div class="left">
+      <img class="logo" src="assets/modelmon-logo.png" alt="Modélmon">
+      <h1 class="tagline">Sealed Gyms for RL</h1>
+      <p class="subline">Train on your own hardware. A Gym scores each submission and signs the result.</p>
+    </div>
+    <div class="island-wrap">
+      <img class="island" src="assets/party-island.png" alt="">
+      <img class="who" src="assets/prism.gif" style="left:300px;top:52px;width:112px" alt="">
+      <img class="who" src="assets/pip.gif" style="left:420px;top:150px;width:112px" alt="">
+      <img class="who" src="assets/sonar.gif" style="left:250px;top:200px;width:112px" alt="">
+      <img class="who" src="assets/sage.png" style="left:130px;top:130px;width:100px" alt="">
+    </div>
+  </section>
+
+  <!-- 2. Problem -->
+  <section class="slide s2">
+    <p class="kicker">Anthropic · April 2026 · Claude Mythos Preview</p>
+    <h2 class="title">Claude found the grader’s test set.</h2>
+    <p class="question">Anthropic asked Claude to build a forecasting model. The test was supposed to measure how well it predicted values it had never seen.</p>
+    <div class="comparison">
+      <section class="result pixel-sheet">
+        <h3 class="monitor-strip">What happened</h3>
+        <p>Claude found the data reserved for grading and used it to train the forecasting model.</p>
+      </section>
+      <section class="result protected pixel-sheet">
+        <h3 class="monitor-strip">How a Gym handles this</h3>
+        <p>The Gym keeps the test set inside the grader. The trainer receives a score and cannot download the test set.</p>
+      </section>
+    </div>
+    <a class="source" href="https://www-cdn.anthropic.com/8b8380204f74670be75e81c820ca8dda846ab289.pdf#page=35" target="_blank" rel="noopener noreferrer">Read Anthropic’s system card · Section 2.3.3.1</a>
+  </section>
+
+  <!-- 3. Idea -->
+  <section class="slide s3">
+    <h2 class="title">How a Gym grades a submission</h2>
+    <div class="diagram">
+      <div class="lane pixel-sheet">
+        <div class="lane-label monitor-strip">Trainer</div>
+        <div class="art">
+          <img class="px" src="assets/sage.png" width="100" alt="">
+          <img class="px" src="assets/pip.gif" width="130" alt="">
+        </div>
+        <p class="cap">Runs the model on the trainer’s hardware</p>
+      </div>
+      <div class="gap">
+        <div>
+          <div class="arrow-label">rollouts</div>
+          <div class="arrow"><div class="shaft"></div><span data-sprite="head" data-scale="4"></span><i class="packet"></i></div>
+        </div>
+        <div>
+          <div class="arrow rev"><div class="shaft"></div><span data-sprite="headL" data-scale="4"></span><i class="packet" style="animation-delay:-1.2s"></i></div>
+          <div class="arrow-label" style="margin:10px 0 0">scores</div>
+        </div>
+      </div>
+      <div class="lane pixel-sheet grader">
+        <div class="lane-label monitor-strip">Sealed grader</div>
+        <div class="art"><span data-sprite="lock" data-scale="8"></span></div>
+        <div class="sealed-rows">
+          <div class="r"><span>answers</span><i class="bar-black"></i></div>
+          <div class="r"><span>hidden tests</span><i class="bar-black" style="flex:.75"></i></div>
+          <div class="r"><span>grader code</span><i class="bar-black" style="flex:.9"></i></div>
+        </div>
+      </div>
+      <div class="gap">
+        <div>
+          <div class="arrow-label">signed result</div>
+          <div class="arrow"><div class="shaft"></div><span data-sprite="head" data-scale="4"></span><i class="packet" style="animation-delay:-.6s"></i></div>
+        </div>
+      </div>
+      <div class="lane pixel-sheet">
+        <div class="lane-label monitor-strip">Solana</div>
+        <div class="art"><img src="assets/solana.svg" width="120" alt=""></div>
+        <p class="cap">Checks the grader’s signature before recording the result or settling payment</p>
+      </div>
+    </div>
+    <div class="monitor-state scc" data-active="true"><span data-sprite="check" data-scale="3" style="color:var(--good)"></span>verified via Solana Confidential Compute</div>
+  </section>
+
+  <!-- 4. Cheat -->
+  <section class="slide s4">
+    <h2 class="title">Solana rejects a modified grader</h2>
+    <div class="leftcol">
+      <div class="diff pixel-sheet">
+        <div class="hd monitor-strip">grader.py</div>
+        <div class="ln del">- return reward</div>
+        <div class="ln add">+ return 1.0</div>
+      </div>
+      <div class="fp pixel-sheet">
+        <div class="hd monitor-strip">code fingerprint</div>
+        <div class="row ok"><span class="k">approved</span><span class="h">7f3a…c91e</span><span data-sprite="check" data-scale="5" style="color:var(--good)"></span></div>
+        <div class="row no"><span class="k">tampered</span><span class="h">b20d…4a07</span><span data-sprite="cross" data-scale="5" style="color:var(--bad)"></span></div>
+      </div>
+    </div>
+    <div class="chain pixel-sheet">
+      <div class="hd monitor-strip"><img src="assets/solana.svg" alt=""><span>Solana</span></div>
+      <div class="stagger">
+        <div class="tx"><div><div class="what">Register grader</div><div class="err">CodeNotApproved</div></div><span class="monitor-state error">REJECTED</span></div>
+        <div class="tx"><div><div class="what">Settle payment</div><div class="err">GraderNotVerified</div></div><span class="monitor-state error">REJECTED</span></div>
+        <div class="tx"><div><div class="what">Write fake <span class="num">100%</span> score</div><div class="err">GraderNotVerified</div></div><span class="monitor-state error">REJECTED</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Payments -->
+  <section class="slide s5">
+    <div class="kicker">How payments settle</div>
+    <h2 class="title">Each graded rep counts toward one payment</h2>
+    <div class="flow">
+      <div class="step s-dep pixel-sheet">
+        <div class="top monitor-strip"><span class="n">Deposit</span><span class="monitor-state gold">1 tx</span></div>
+        <div class="ill"><span data-sprite="coins" data-scale="10"></span></div>
+        <div class="big num">$50</div>
+        <p class="cap">into a payment channel</p>
+      </div>
+      <div class="gap"><div class="arrow" style="flex:1"><div class="shaft"></div><span data-sprite="head" data-scale="4"></span></div></div>
+      <div class="step s-rep pixel-sheet">
+        <div class="top monitor-strip"><span class="n">Reps</span><span class="monitor-state">0 tx</span></div>
+        <div class="ill">
+          <div class="vouchers">
+            <div class="budget-ledger pxbox v1"></div>
+            <div class="budget-ledger pxbox v2"></div>
+            <div class="budget-ledger pxbox v3">
+              <div class="lbl"><span>running total</span><span style="display:flex;gap:6px;align-items:center;color:var(--good)">signed<span data-sprite="check" data-scale="2"></span></span></div>
+              <div class="tot num" id="tab-total">$12.40</div>
+            </div>
+          </div>
+        </div>
+        <div class="big num" style="font-size:50px"><span id="tab-reps">12,400</span> <span style="font-size:28px;color:var(--muted);font-weight:600">paid reps</span></div>
+        <p class="cap">Tracked off-chain</p>
+      </div>
+      <div class="gap"><div class="arrow" style="flex:1"><div class="shaft"></div><span data-sprite="head" data-scale="4"></span></div></div>
+      <div class="step s-set pixel-sheet">
+        <div class="top monitor-strip"><span class="n">Settle</span><span class="monitor-state gold">1 tx</span></div>
+        <div class="ill">
+          <div class="split">
+            <div class="bar budget-meter"><div style="width:70%;background:var(--live)"></div><div style="width:20%;background:var(--grass)"></div><div style="width:10%;background:var(--action)"></div></div>
+            <div class="legend">
+              <span><i class="sw" style="background:var(--live)"></i>Gym Leader</span><span class="pct num">70%</span><span class="amt num">$8.68</span>
+              <span><i class="sw" style="background:var(--grass)"></i>contributors</span><span class="pct num">20%</span><span class="amt num">$2.48</span>
+              <span><i class="sw" style="background:var(--action)"></i>platform</span><span class="pct num">10%</span><span class="amt num">$1.24</span>
+            </div>
+            <div class="refund"><span>refund to trainer</span><span class="amt num">$37.60</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><span data-sprite="lock" data-scale="2"></span>only a verified grader can settle</p>
+  </section>
+
+  <!-- 6. Case study -->
+  <section class="slide s6">
+    <div class="kicker">Case study <span class="monitor-state gold" id="cs-draft">DRAFT NUMBERS</span></div>
+    <h2 class="title" id="cs-title">Can Clef catch an incorrect transfer?</h2>
+    <div class="setup">
+      <span class="monitor-state chip"><b id="cs-model">Clef Flash</b>&nbsp;<span class="num" id="cs-model-meta">9.4B · Apache-2.0</span></span>
+      <span class="monitor-state chip">Only the <span class="num">~60M</span> decision head is trained</span>
+      <span class="monitor-state chip">Grading fees paid through x402</span>
+    </div>
+    <div class="main">
+      <div class="gym pixel-sheet">
+        <div class="panel-hd monitor-strip">Transaction Guard</div>
+        <div class="panel-sub">Should the model sign this transfer?</div>
+        <div class="txcard budget-ledger pxbox">
+          <div class="req">Request: <b>Pay <span class="num">15.50</span> USDC to D9ch…</b></div>
+          <div class="ins"><span style="color:var(--muted)">#1</span> Token transfer<br>&nbsp;&nbsp; amount <span class="hl">1,550.00</span> USDC<br>&nbsp;&nbsp; to&nbsp;&nbsp;&nbsp;&nbsp; D9ch…x4Qm</div>
+        </div>
+        <div class="answer">Answer <span class="monitor-state error">reject</span><span class="monitor-state">wrong_amount</span></div>
+        <p class="formula"><b>0.8</b> right decision + <b>0.2</b> right reason<br>~<span class="num">40%</span> of tasks are safe</p>
+      </div>
+      <div class="chart pixel-sheet reward-chart">
+        <div class="panel-hd monitor-strip">Held-out score</div>
+        <div class="panel-sub" id="cs-chart-sub">48 tasks · 0–100 · 95% CI</div>
+        <div class="rows" id="cs-rows">
+          <div class="grid" id="cs-grid"></div>
+        </div>
+        <div class="axis num" id="cs-axis"></div>
+      </div>
+      <div class="metrics">
+        <div class="delta pixel-sheet"><div class="num" id="cs-delta">+33 pts</div><div class="lbl">held-out score</div></div>
+        <div class="sub pixel-sheet">
+          <div class="k">decision accuracy</div>
+          <div class="v num"><span class="from" id="cs-dec-from">49%</span><svg class="spr" width="26" height="26" aria-label="to" role="img"><use href="#pixel-arrow-right"/></svg><span class="to" id="cs-dec-to">81%</span></div>
+        </div>
+        <div class="sub pixel-sheet">
+          <div class="k">reason accuracy</div>
+          <div class="v num"><span class="from" id="cs-rsn-from">34%</span><svg class="spr" width="26" height="26" aria-label="to" role="img"><use href="#pixel-arrow-right"/></svg><span class="to" id="cs-rsn-to">71%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer pixel-sheet">
+      <div class="claim"><span data-sprite="lock" data-scale="2"></span><span id="cs-claim">The Gym scores 48 held-out tasks and records the result on Solana.</span></div>
+      <div class="meta"><span class="mono" id="cs-tx">tx 4Fq9…wZ2m</span><span class="num" id="cs-cost">12,288 reps · $12.29</span></div>
+    </div>
+  </section>
+
+  <!-- 7. Close -->
+  <section class="slide s7">
+    <img class="logo" src="assets/modelmon-logo.png" alt="Modélmon">
+    <div class="closing-message pixel-sheet">
+      <p class="line">Train your model at a Gym.</p>
+      <p class="small">Each graded submission comes with a signed score.</p>
+    </div>
+    <div class="party">
+      <img src="assets/pip.gif" alt="">
+      <img src="assets/sonar.gif" alt="">
+      <img src="assets/prism.gif" alt="">
+      <img class="sage" src="assets/sage.png" alt="">
+      <img src="assets/rivet.gif" alt="">
+      <img src="assets/quill.gif" alt="">
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* =====================================================================
+   CASE_STUDY: every number on slide 6 lives here. Swap in real results,
+   then set draft: false to hide the "DRAFT NUMBERS" tag.
+   Score = 0.8 x decision accuracy + 0.2 x reason accuracy (per task),
+   so keep score ≈ 0.8*decisionAcc + 0.2*reasonAcc (checked in console).
+   ===================================================================== */
+const CASE_STUDY = {
+  draft: true,
+  model: { name: "Clef Flash", meta: "9.4B · Apache-2.0" },
+  heldOutTasks: 48,
+  baselines: { alwaysSign: 40, alwaysReject: 50 },  // trivial policies on the same 48 tasks
+  before: { score: 46, ci: 13, decisionAcc: 49, reasonAcc: 34 },  // 95% CI half-width
+  after:  { score: 79, ci: 11, decisionAcc: 81, reasonAcc: 71 },
+  reps: 12288,
+  costUsd: 12.29,
+  txId: "4Fq9…wZ2m",
+};
+
+/* ---------- pixel sprites ---------- */
+const PAL = { o: "#3b2f25", g: "#f5d78e", h: "#fff2c4", s: "#c9a75e", m: "#8d8478", w: "#fff7e6", l: "#a99a84", c: "currentColor", k: "#3b2f25" };
+const SPRITES = {
+  lock: [
+    "....oooooo....",
+    "...ommmmmmo...",
+    "..omo....omo..",
+    "..omo....omo..",
+    "..omo....omo..",
+    "oooooooooooooo",
+    "ohhhhhhhhhhhgo",
+    "oggggggggggggo",
+    "ogggggkkgggggo",
+    "ogggggkkgggggo",
+    "oggggggkgggsgo",
+    "oggggggkgggsgo",
+    "osgggggggggsso",
+    "osssssssssssso",
+    "oooooooooooooo",
+  ],
+  file: [
+    "ooooooo....",
+    "owwwwwoo...",
+    "owwwwwowo..",
+    "owwwwwowwo.",
+    "owwwwwooooo",
+    "owwwwwwwwwo",
+    "owlllllllwo",
+    "owwwwwwwwwo",
+    "owllllllwwo",
+    "owwwwwwwwwo",
+    "owlllllllwo",
+    "owwwwwwwwwo",
+    "owlllllwwwo",
+    "owwwwwwwwwo",
+    "ooooooooooo",
+  ],
+  coins: [
+    "..oooooooo..",
+    ".ohhggggggo.",
+    "oggggggggggo",
+    "osggggggggso",
+    ".oossssssoo.",
+    "oggggggggggo",
+    "osggggggggso",
+    ".oossssssoo.",
+    "oggggggggggo",
+    "osggggggggso",
+    ".oossssssoo.",
+    "oggggggggggo",
+    "osggggggggso",
+    ".oooooooooo.",
+  ],
+  head: ["c...", "cc..", "ccc.", "cccc", "ccc.", "cc..", "c..."],
+  headL: ["...c", "..cc", ".ccc", "cccc", ".ccc", "..cc", "...c"],
+  check: ["......cc", ".....cc.", "c...cc..", "cc.cc...", ".ccc....", "..c....."],
+  cross: ["cc...cc", ".cc.cc.", "..ccc..", ".cc.cc.", "cc...cc"],
+};
+function sprite(name, scale) {
+  const rows = SPRITES[name];
+  const w = Math.max(...rows.map(r => r.length)), h = rows.length;
+  let rects = "";
+  rows.forEach((row, y) => {
+    let x = 0;
+    while (x < row.length) {
+      const ch = row[x];
+      if (ch === "." || !PAL[ch]) { x++; continue; }
+      let run = 1;
+      while (row[x + run] === ch) run++;
+      rects += `<rect x="${x}" y="${y}" width="${run}" height="1" fill="${PAL[ch]}"/>`;
+      x += run;
+    }
+  });
+  return `<svg class="spr" width="${w * scale}" height="${h * scale}" viewBox="0 0 ${w} ${h}" aria-hidden="true">${rects}</svg>`;
+}
+document.querySelectorAll("[data-sprite]").forEach(el => {
+  el.innerHTML = sprite(el.dataset.sprite, +el.dataset.scale || 6);
+  el.style.display = el.style.display || "inline-block";
+});
+
+/* ---------- case study render ---------- */
+(function renderCaseStudy(cs) {
+  const $ = id => document.getElementById(id);
+  const fmtInt = n => n.toLocaleString("en-US");
+  $("cs-draft").style.display = cs.draft ? "" : "none";
+  $("cs-model").textContent = cs.model.name;
+  $("cs-model-meta").textContent = cs.model.meta;
+  $("cs-chart-sub").textContent = `${cs.heldOutTasks} held-out tasks · 0–100 · 95% CI`;
+  $("cs-claim").textContent = `The Gym scores ${cs.heldOutTasks} held-out tasks and records the result on Solana.`;
+  $("cs-tx").textContent = `tx ${cs.txId}`;
+  $("cs-cost").textContent = `${fmtInt(cs.reps)} reps · $${cs.costUsd.toFixed(2)}`;
+  const d = Math.round(cs.after.score - cs.before.score);
+  $("cs-delta").innerHTML = `${d >= 0 ? "+" : "−"}${Math.abs(d)}<small>pts</small>`;
+  $("cs-dec-from").textContent = cs.before.decisionAcc + "%";
+  $("cs-dec-to").textContent = cs.after.decisionAcc + "%";
+  $("cs-rsn-from").textContent = cs.before.reasonAcc + "%";
+  $("cs-rsn-to").textContent = cs.after.reasonAcc + "%";
+
+  const rows = [
+    { lab: "Always sign", v: cs.baselines.alwaysSign, cls: "base" },
+    { lab: "Always reject", v: cs.baselines.alwaysReject, cls: "base" },
+    { lab: `${cs.model.name.split(" ")[0]} before`, v: cs.before.score, ci: cs.before.ci, cls: "mid" },
+    { lab: `${cs.model.name.split(" ")[0]} after`, v: cs.after.score, ci: cs.after.ci, cls: "hero" },
+  ];
+  const box = $("cs-rows");
+  rows.forEach(r => {
+    const el = document.createElement("div");
+    el.className = "crow " + r.cls;
+    const hi = r.ci ? Math.min(100, r.v + r.ci) : r.v;
+    const lo = r.ci ? Math.max(0, r.v - r.ci) : r.v;
+    el.innerHTML = `<div class="lab">${r.lab}</div><div class="track">
+      <div class="b" style="--w:${r.v}%"></div>
+      ${r.ci ? `<div class="ci" style="left:${lo}%;width:${hi - lo}%"></div>` : ""}
+      <div class="val num" style="left:calc(${hi}% + 14px)">${r.v}${r.ci ? ` <small>±${r.ci}</small>` : ""}</div>
+    </div>`;
+    box.appendChild(el);
+  });
+  const grid = $("cs-grid"), axis = $("cs-axis");
+  [0, 25, 50, 75, 100].forEach(t => {
+    if (t) grid.insertAdjacentHTML("beforeend", `<i style="left:${t}%"></i>`);
+    axis.insertAdjacentHTML("beforeend", `<span style="left:${t}%">${t}</span>`);
+  });
+  for (const k of ["before", "after"]) {
+    const s = cs[k], implied = 0.8 * s.decisionAcc + 0.2 * s.reasonAcc;
+    if (Math.abs(implied - s.score) > 1.5)
+      console.warn(`CASE_STUDY.${k}: score ${s.score} but 0.8·decision + 0.2·reason = ${implied.toFixed(1)}`);
+  }
+})(CASE_STUDY);
+
+/* ---------- deck ---------- */
+const stage = document.getElementById("stage");
+const slides = [...document.querySelectorAll(".slide")];
+let cur = -1;
+
+function fit() {
+  const s = Math.min(innerWidth / 1600, innerHeight / 900);
+  stage.style.setProperty("--s", s);
+}
+addEventListener("resize", fit);
+fit();
+
+function go(n) {
+  n = Math.max(0, Math.min(slides.length - 1, n));
+  if (n === cur) return;
+  if (cur >= 0) slides[cur].classList.remove("active");
+  cur = n;
+  // restart CSS entrance animations
+  const s = slides[cur];
+  void s.offsetWidth;
+  s.classList.add("active");
+  history.replaceState(null, "", "#" + (cur + 1));
+  if (s.classList.contains("s5")) tickTab();
+}
+const next = () => go(cur + 1), prev = () => go(cur - 1);
+
+addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if ((k === "Enter" || k === " ") && e.target.closest?.("a")) return;
+  if (k === " " || k === "ArrowRight" || k === "PageDown" || k === "Enter" || k === "ArrowDown") { e.preventDefault(); next(); }
+  else if (k === "ArrowLeft" || k === "Backspace" || k === "PageUp" || k === "ArrowUp") { e.preventDefault(); prev(); }
+  else if (k === "Home") go(0);
+  else if (k === "End") go(slides.length - 1);
+  else if (k === "f" || k === "F") {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen?.();
+  }
+});
+addEventListener("click", e => {
+  if (e.button === 0 && !e.target.closest?.("a")) next();
+});
+addEventListener("hashchange", () => go(parseInt(location.hash.slice(1), 10) - 1 || 0));
+
+let idleT;
+addEventListener("mousemove", () => {
+  document.body.classList.remove("idle");
+  clearTimeout(idleT);
+  idleT = setTimeout(() => document.body.classList.add("idle"), 1500);
+});
+
+/* slide 5: tick the running total */
+let tickRaf;
+function tickTab() {
+  const REPS = 12400, PRICE = 0.001, DUR = 2600;
+  const repsEl = document.getElementById("tab-reps"), totEl = document.getElementById("tab-total");
+  const t0 = performance.now();
+  cancelAnimationFrame(tickRaf);
+  const step = now => {
+    const p = Math.min(1, (now - t0 - 300) / DUR);
+    const e = p <= 0 ? 0 : 1 - Math.pow(1 - p, 3);
+    const n = Math.round(REPS * e);
+    repsEl.textContent = n.toLocaleString("en-US");
+    totEl.textContent = "$" + (n * PRICE).toFixed(2);
+    if (p < 1) tickRaf = requestAnimationFrame(step);
+  };
+  tickRaf = requestAnimationFrame(step);
+}
+
+go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>

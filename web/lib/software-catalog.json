@@ -1,0 +1,408 @@
+{
+  "realms": [
+    {
+      "id": "software",
+      "name": "Software",
+      "domain": "Software",
+      "kit": "forge",
+      "accent": "#285f83",
+      "description": "Software engineering and emulation."
+    }
+  ],
+  "gyms": [
+    {
+      "id": "emulation",
+      "realm": "software",
+      "name": "Emulation Gym",
+      "description": "Read SM83 instruction widths and timings from the Game Boy opcode table.",
+      "cents": 7,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "timing",
+          "name": "Instruction timing",
+          "prop": "scope",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "sm83-timing-0x00",
+              "prompt": "How many clock cycles does this SM83 instruction take?",
+              "input": {
+                "opcode": "0x00",
+                "mnemonic": "NOP",
+                "operands": []
+              }
+            },
+            {
+              "id": "sm83-timing-0x01",
+              "prompt": "How many clock cycles does this SM83 instruction take?",
+              "input": {
+                "opcode": "0x01",
+                "mnemonic": "LD",
+                "operands": [
+                  "BC",
+                  "n16"
+                ]
+              }
+            },
+            {
+              "id": "sm83-timing-0x03",
+              "prompt": "How many clock cycles does this SM83 instruction take?",
+              "input": {
+                "opcode": "0x03",
+                "mnemonic": "INC",
+                "operands": [
+                  "BC"
+                ]
+              }
+            },
+            {
+              "id": "sm83-timing-0x06",
+              "prompt": "How many clock cycles does this SM83 instruction take?",
+              "input": {
+                "opcode": "0x06",
+                "mnemonic": "LD",
+                "operands": [
+                  "B",
+                  "n8"
+                ]
+              }
+            },
+            {
+              "id": "sm83-timing-0x09",
+              "prompt": "How many clock cycles does this SM83 instruction take?",
+              "input": {
+                "opcode": "0x09",
+                "mnemonic": "ADD",
+                "operands": [
+                  "HL",
+                  "BC"
+                ]
+              }
+            },
+            {
+              "id": "sm83-timing-0x0B",
+              "prompt": "How many clock cycles does this SM83 instruction take?",
+              "input": {
+                "opcode": "0x0B",
+                "mnemonic": "DEC",
+                "operands": [
+                  "BC"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "instruction-width",
+          "name": "Instruction width",
+          "prop": "jig",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "sm83-instruction-width-0x0E",
+              "prompt": "How many bytes does this SM83 instruction occupy?",
+              "input": {
+                "opcode": "0x0E",
+                "mnemonic": "LD",
+                "operands": [
+                  "C",
+                  "n8"
+                ]
+              }
+            },
+            {
+              "id": "sm83-instruction-width-0x11",
+              "prompt": "How many bytes does this SM83 instruction occupy?",
+              "input": {
+                "opcode": "0x11",
+                "mnemonic": "LD",
+                "operands": [
+                  "DE",
+                  "n16"
+                ]
+              }
+            },
+            {
+              "id": "sm83-instruction-width-0x14",
+              "prompt": "How many bytes does this SM83 instruction occupy?",
+              "input": {
+                "opcode": "0x14",
+                "mnemonic": "INC",
+                "operands": [
+                  "D"
+                ]
+              }
+            },
+            {
+              "id": "sm83-instruction-width-0x16",
+              "prompt": "How many bytes does this SM83 instruction occupy?",
+              "input": {
+                "opcode": "0x16",
+                "mnemonic": "LD",
+                "operands": [
+                  "D",
+                  "n8"
+                ]
+              }
+            },
+            {
+              "id": "sm83-instruction-width-0x1A",
+              "prompt": "How many bytes does this SM83 instruction occupy?",
+              "input": {
+                "opcode": "0x1A",
+                "mnemonic": "LD",
+                "operands": [
+                  "A",
+                  "DE"
+                ]
+              }
+            },
+            {
+              "id": "sm83-instruction-width-0x21",
+              "prompt": "How many bytes does this SM83 instruction occupy?",
+              "input": {
+                "opcode": "0x21",
+                "mnemonic": "LD",
+                "operands": [
+                  "HL",
+                  "n16"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "gbdev · Game Boy opcode reference",
+        "url": "https://github.com/gbdev/gb-opcodes",
+        "license": "CC0 1.0",
+        "edition": "SM83 · 376f61c",
+        "collection": "Modélmon instruction exercises built from the published unprefixed opcode table."
+      }
+    },
+    {
+      "id": "engineering",
+      "realm": "software",
+      "name": "Engineering Gym",
+      "description": "Solve Python programming tasks involving strings, sequences and numerical methods.",
+      "cents": 7,
+      "development": 0,
+      "heldOut": 0,
+      "skills": [
+        {
+          "id": "strings",
+          "name": "String operations",
+          "prop": "scope",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "mbpp-train-602",
+              "prompt": "Write a python function to find the first repeated character in a given string.",
+              "input": {
+                "task_id": 602,
+                "function": "first_repeated_char",
+                "parameters": [
+                  "str1"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-604",
+              "prompt": "Write a function to reverse words in a given string.",
+              "input": {
+                "task_id": 604,
+                "function": "reverse_words",
+                "parameters": [
+                  "s"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-607",
+              "prompt": "Write a function to search a literals string in a string and also find the location within the original string where the pattern occurs by using regex.",
+              "input": {
+                "task_id": 607,
+                "function": "find_literals",
+                "parameters": [
+                  "text",
+                  "pattern"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-619",
+              "prompt": "Write a function to move all the numbers in it to the given string.",
+              "input": {
+                "task_id": 619,
+                "function": "move_num",
+                "parameters": [
+                  "test_str"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "sequences",
+          "name": "Sequence operations",
+          "prop": "jig",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "mbpp-train-601",
+              "prompt": "Write a function to find the longest chain which can be formed from the given set of pairs.",
+              "input": {
+                "task_id": 601,
+                "function": "max_chain_length",
+                "parameters": [
+                  "arr",
+                  "n"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-610",
+              "prompt": "Write a python function to remove the k'th element from a given list.",
+              "input": {
+                "task_id": 610,
+                "function": "remove_kth_element",
+                "parameters": [
+                  "list1",
+                  "L"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-611",
+              "prompt": "Write a function to find the maximum of nth column from the given tuple list.",
+              "input": {
+                "task_id": 611,
+                "function": "max_of_nth",
+                "parameters": [
+                  "test_list",
+                  "N"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-612",
+              "prompt": "Write a python function to merge the first and last elements separately in a list of lists.",
+              "input": {
+                "task_id": 612,
+                "function": "merge",
+                "parameters": [
+                  "lst"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-614",
+              "prompt": "Write a function to find the cumulative sum of all the values that are present in the given tuple list.",
+              "input": {
+                "task_id": 614,
+                "function": "cummulative_sum",
+                "parameters": [
+                  "test_list"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-615",
+              "prompt": "Write a function to find average value of the numbers in a given tuple of tuples.",
+              "input": {
+                "task_id": 615,
+                "function": "average_tuple",
+                "parameters": [
+                  "nums"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "numbers",
+          "name": "Numerical methods",
+          "prop": "journal",
+          "training": [
+            0,
+            0,
+            0
+          ],
+          "records": [
+            {
+              "id": "mbpp-train-605",
+              "prompt": "Write a function to check if the given integer is a prime number.",
+              "input": {
+                "task_id": 605,
+                "function": "prime_num",
+                "parameters": [
+                  "num"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-606",
+              "prompt": "Write a function to convert degrees to radians.",
+              "input": {
+                "task_id": 606,
+                "function": "radian_degree",
+                "parameters": [
+                  "degree"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-608",
+              "prompt": "Write a python function to find nth bell number.",
+              "input": {
+                "task_id": 608,
+                "function": "bell_Number",
+                "parameters": [
+                  "n"
+                ]
+              }
+            },
+            {
+              "id": "mbpp-train-617",
+              "prompt": "Write a function to check for the number of jumps required of given length to reach a point of form (d, 0) from origin in a 2d plane.",
+              "input": {
+                "task_id": 617,
+                "function": "min_Jumps",
+                "parameters": [
+                  "a",
+                  "b",
+                  "d"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "source": {
+        "name": "Google Research · MBPP",
+        "url": "https://huggingface.co/datasets/google-research-datasets/mbpp",
+        "license": "CC BY 4.0",
+        "edition": "MBPP full · train · 4bb6404",
+        "collection": "Published programming prompts grouped locally by topic. Reference implementations and expected outputs are withheld."
+      }
+    }
+  ]
+}

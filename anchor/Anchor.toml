@@ -1,0 +1,16 @@
+[toolchain]
+anchor_version = "0.32.1"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.devnet]
+modelmon = "A5svMNEtWG8ac42GccBp1FXR4GkwoqfGqh2QWGYw3nhj"
+
+[programs.localnet]
+modelmon = "A5svMNEtWG8ac42GccBp1FXR4GkwoqfGqh2QWGYw3nhj"
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"

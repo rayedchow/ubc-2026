@@ -1,0 +1,251 @@
+body:has(.gym-interior-scene) {
+  overflow: hidden;
+  background: #281912;
+}
+body:has(.gym-interior-scene) :is(header.party-menubar, .foot) {
+  display: none;
+}
+.gym-interior-scene,
+.room-viewport,
+.room-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.gym-interior-scene {
+  isolation: isolate;
+  background: #271813;
+}
+.room-backdrop {
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+.room-viewport {
+  display: grid;
+  place-items: center;
+}
+.room-viewport .assembled-room {
+  position: relative;
+  width: min(calc(100vw - 24px), var(--room-native), calc((100dvh - 44px) * var(--room-aspect)));
+  margin: 0;
+  transform-origin: center;
+  overflow: visible;
+  isolation: isolate;
+  border: 3px solid #282329;
+  border-radius: 0;
+  background: #d9bd8c;
+  box-shadow:
+    0 4px #544449,
+    4px 9px #09090b75;
+}
+.room-sign {
+  position: absolute;
+  z-index: 2;
+  top: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 86%;
+  padding: 3px 12px;
+  border: 2px solid #473037;
+  box-shadow:
+    inset 0 2px #dca878,
+    inset 0 -2px #6a4440,
+    0 2px #3d3031;
+  background: #deb781;
+  color: #392c23;
+  font: 650 clamp(12px, 2vw, 23px) / 1.15 var(--display);
+  text-shadow:none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.room-viewport .interior-station,
+.room-viewport .interior-vault {
+  align-items: end;
+  padding: 0 2% 2.5%;
+  overflow: hidden;
+}
+.room-viewport :is(.interior-station, .interior-vault, .room-door) span {
+  font: 650 clamp(10px, 1.3vw, 16px) / 1.1 var(--display);
+  text-align: center;
+  padding: 1px 5px;
+  border-radius: 1px;
+  border: 1px solid #51413e;
+  box-shadow: 0 1px #46373d;
+}
+.room-door {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #372923;
+}
+.room-door span {
+  background: #e2be93;
+}
+.room-lens,
+.room-floors {
+  position: absolute;
+  bottom: 0;
+  left: 0.5%;
+  z-index: 3;
+}
+.room-lens .scene-zoom button {
+  min-width: 21px;
+  min-height: 22px;
+  padding: 1px 4px;
+  font-size: 10px;
+}
+.room-lens .scene-zoom svg {
+  width: 12px;
+  height: 12px;
+}
+.room-lens .scene-zoom button:nth-child(2) svg {
+  display: none;
+}
+.room-floors {
+  left: auto;
+  right: 0.6%;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 3px;
+  background: #e3c492;
+  color: #342924;
+  font: 600 13px var(--display);
+}
+.room-floors button {
+  min-width: 20px;
+}
+.gym-interior-scene {
+  --side-width: clamp(370px, 36vw, 520px);
+}
+.room-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.room-viewport {
+  width: auto;
+  height: auto;
+  container-type: size;
+  isolation: isolate;
+}
+.room-viewport .assembled-room {
+  width: min(calc(100% - 24px), var(--room-native), calc((100cqh - 36px) * var(--room-aspect)));
+}
+.gym-interior-scene[data-panel-open="true"] .room-viewport {
+  left: calc(var(--side-width) + 30px);
+}
+.room-drawer-layer {
+  position: absolute;
+  z-index: 3;
+  left: 18px;
+  top: 18px;
+  width: var(--side-width);
+  pointer-events: none;
+}
+.room-panel-motion {
+  transform-origin: 0 20%;
+}
+.interior-place {
+  max-height: calc(100dvh - 36px);
+  pointer-events: auto;
+}
+.interior-place .place-body {
+  padding-bottom: 14px;
+}
+.room-place-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  z-index: 1;
+  box-shadow: 0 2px #68584755;
+}
+.interior-place .workshop-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+.interior-place .field-panel {
+  border: 1px solid #b89c7a;
+  border-radius: 2px;
+  background: #fff4d9;
+  min-width: 0;
+}
+.interior-place :is(th, td) {
+  vertical-align: middle;
+}
+.interior-place .station-example {
+  margin: 0;
+  padding: 0 12px 12px;
+}
+.interior-place .field-panel-head {
+  padding: 10px 12px;
+  align-items: center;
+}
+.interior-place .field-panel-head h2,
+.interior-place h3 {
+  font: 650 19px/1.15 var(--display);
+}
+.interior-place .skill-table thead th {
+  padding: 10px 9px; vertical-align: middle;
+}
+.interior-place .skill-table tbody th {
+  white-space: normal;
+}
+.interior-place .skill-table tbody :is(th, td) {
+  padding: 12px 9px; vertical-align: middle;
+  font-size: 12px;
+}
+.interior-place .skill-table .station-index {
+  display: none;
+}
+.interior-place .field-panel.session-panel > .field-panel-head {
+  padding: 0;
+}
+.interior-place .place-body > .place-volume {
+  margin: 4px 0 8px;
+}
+.room-viewport :is(.interior-station, .interior-vault)[aria-expanded="true"] {
+  box-shadow: inset 0 0 0 3px #ffe48a;
+}
+@media (max-width: 719px) {
+  .gym-interior-scene[data-panel-open="true"] .room-viewport {
+    left: 0;
+    bottom: calc(52dvh + 14px);
+  }
+  .room-drawer-layer {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 10px;
+    width: auto;
+  }
+  .interior-place {
+    height: 52dvh;
+    max-height: 52dvh;
+  }
+  .room-place-art {
+    width: 78px;
+  }
+}
+@media (max-width: 550px) {
+  .room-lens .scene-zoom button {
+    min-height: 19px;
+    min-width: 19px;
+  }
+  .room-sign {
+    padding: 1px 6px;
+    top: 3%;
+  }
+  .room-viewport :is(.interior-station, .interior-vault) span {
+    font-size: clamp(9px, 2.5vw, 12px);
+  }
+}

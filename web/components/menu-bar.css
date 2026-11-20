@@ -1,0 +1,207 @@
+.menubar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  font: 600 17px/1.1 var(--display);
+  pointer-events: none;
+}
+.menubar > * {
+  pointer-events: auto;
+}
+.menubar nav,
+.party-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.menubar .modelmon-wordmark {
+  display: block;
+  width: clamp(95px, 16vw, 210px);
+}
+.modelmon-wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.menubar nav a {
+  padding: 7px 15px;
+  color: #39281e;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 2px;
+}
+.menubar nav a:is(:hover, :focus-visible) {
+  background: #e7bb87;
+  text-decoration: underline;
+}
+.menubar nav a[aria-current] {
+  background: #ffd275;
+  color: #332738;
+  box-shadow:
+    inset 0 2px #fff1b6,
+    inset 0 -2px #b88549;
+}
+.menubar.party-menubar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  top: 8px;
+  width: min(1280px, calc(100% - 24px));
+  max-width: none;
+  padding: 3px 12px;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.party-menubar .party-actions {
+  justify-self: end;
+  white-space: nowrap;
+}
+@media (max-width: 800px) {
+  .menubar.party-menubar {
+    grid-template-columns: auto 1fr auto;
+    padding: 3px 5px;
+    gap: 6px;
+  }
+  .party-menubar nav {
+    justify-content: center;
+  }
+  .party-menubar nav a {
+    padding: 6px;
+  }
+}
+@media (max-width: 500px) {
+  .menubar.party-menubar {
+    width: calc(100% - 8px);
+    gap: 3px;
+    padding: 3px;
+  }
+  .party-menubar .modelmon-wordmark {
+    width: clamp(50px, 17vw, 85px);
+  }
+  .party-menubar nav {
+    gap: 0;
+  }
+  .party-menubar nav a {
+    padding: 7px 3px;
+    font-size: clamp(11px, 3vw, 14px);
+  }
+  .party-menubar .party-actions {
+    gap: 2px;
+  }
+  .party-menubar .party-actions button {
+    font-size: 12px;
+    padding: 3px;
+    gap: 1px;
+  }
+  .party-menubar .party-actions svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+@media (max-width: 359px) {
+  .party-menubar .party-actions svg {
+    display: none;
+  }
+}
+
+.party-menubar > nav {
+  justify-self: center;
+  width: max-content;
+  max-width: 100%;
+  align-items: center;
+  background: #d6a47c;
+  border: 3px solid var(--game-ink);
+  border-radius: 4px;
+  padding: 4px;
+  box-shadow:
+    inset 0 2px #e8b883,
+    inset 0 -3px #9a674f,
+    2px 3px #33263288;
+}
+.party-menubar .party-actions :is(.party-count, .pixel-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 8px;
+  min-height: 30px;
+  white-space: nowrap;
+  font: 650 15px/1 var(--display);
+}
+.party-menubar .party-count {
+  color: #3c3027;
+  background: #d6bd9d;
+  border: 2px solid #685140;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 2px #eee0c6,
+    inset 0 -2px #b49a7c,
+    1px 2px #655044;
+}
+.party-roster-menu {
+  z-index: 45;
+  width: max-content;
+  max-width: 90vw;
+  max-height: min(64svh, 420px);
+  overflow: auto;
+  padding: 5px;
+  background: #ecddc4;
+  color: #3a2e25;
+  border: 2px solid #685140;
+  box-shadow: 2px 3px #655044;
+}
+.party-roster-menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-align: left;
+  font: 650 15px var(--display);
+  padding: 2px 6px;
+}
+.party-roster-menu button:is(:hover, :focus-visible) {
+  background: #d8bf9e;
+}
+@media (max-width: 500px) {
+  .party-menubar .party-actions :is(.party-count, .pixel-button) {
+    min-height: 25px;
+    font-size: 11px;
+    padding: 3px;
+    gap: 1px;
+  }
+}
+.party-menubar .party-actions button:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 500px) {
+  .party-menubar > nav {
+    padding: 1px;
+    border-width: 2px;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 680px) {
+  .menubar.party-menubar { width: calc(100% - 8px); padding-inline: 2px; gap: 3px; }
+  .menubar .modelmon-wordmark { width: clamp(80px, 16vw, 108px); }
+  .menubar nav a {
+    font-size: clamp(13px, 2.5vw, 15px);
+    padding: 6px 4px;
+  }
+  .menubar .party-actions :is(.party-count, .pixel-button) {
+    font-size: 13px;
+    padding: 4px;
+  }
+}
+@media (max-width: 400px) {
+  .menubar nav a {
+    padding-inline: clamp(1px, calc(4.3vw - 13px), 4px);
+  }
+  .party-actions .action-suffix {
+    display: none;
+  }
+}

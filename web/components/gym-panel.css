@@ -1,0 +1,131 @@
+.gym-panel {
+  --place-width: clamp(370px, 36vw, 520px);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+.place-illustration {
+  flex: none;
+  position: relative;
+  height: 92px;
+  border-bottom: 2px solid #a69372;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #efba76;
+  background-image: repeating-linear-gradient(0deg, transparent 0 13px, #ffffff23 14px 15px);
+}
+.place-illustration[data-kit="ledger"] {
+  background-color: #a8d47b;
+}
+.place-illustration[data-kit="counsel"] {
+  background-color: #bad8ba;
+}
+.place-illustration:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 130px;
+  height: 20px;
+  bottom: 4px;
+  left: 48%;
+  background: #534b4c33;
+  clip-path: polygon(12% 0, 88% 0, 100% 45%, 86% 100%, 12% 100%, 0 60%);
+}
+.place-building {
+  position: absolute;
+  inset: 4px 12% 6px 38%;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+.place-domain {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font: 700 16px var(--display);
+  background: #fff0ba;
+  padding: 2px 6px;
+  border: 1px solid #7f7a60;
+}
+.place-close {
+  position: absolute;
+  z-index: 1;
+  right: 7px;
+  top: 7px;
+  background: #fff5d6;
+  border: 1px solid #625c50;
+  border-radius: 2px;
+  padding: 3px;
+}
+.place-body {
+  padding: 12px 15px 4px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.gym-panel .place-body h2 {
+  font: 700 26px/1.05 var(--display);
+  margin: 0 0 4px;
+  color: #283937;
+}
+
+.gym-panel .place-illustration {
+  border-bottom: 4px solid #825e4a;
+}
+.gym-panel .place-close {
+  z-index: 2;
+}
+.gym-panel .place-body {
+  padding: 15px 18px 8px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.gym-panel .place-body p {
+  font-size: 13px;
+  line-height: 1.4;
+}
+.gym-panel .place-body .command-head h3 {
+  margin: 0;
+  color: #332a26;
+  font: 600 14px/1.1 var(--display);
+}
+@media (max-width: 719px) {
+  .gym-panel .place-illustration {
+    height: 45px;
+  }
+  .gym-panel .place-domain {
+    top: 9px;
+  }
+  .gym-panel .place-building {
+    inset: 1px 20% 1px 36%;
+  }
+  .gym-panel .place-body {
+    padding: 8px 12px;
+  }
+  .gym-panel .place-body h2 {
+    font-size: 22px;
+  }
+}
+
+.place-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.place-heading h2 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.gym-volume {
+  flex: none;
+  display: grid;
+  text-align: right;
+  font: 600 11px var(--body);
+  color: #5e4839;
+}
+.gym-volume strong {
+  font: 650 20px var(--display);
+  color: #493528;
+}

@@ -1,0 +1,45 @@
+.pixel-scroll-box {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+.pixel-scroll-viewport {
+  width: 100%;
+  height: 100%;
+  padding-right: 16px;
+  overscroll-behavior: contain;
+}
+.pixel-scroll-viewport > div {
+  table-layout: fixed;
+  width: 100%;
+}
+.pixel-scroll-rail {
+  display: flex;
+  touch-action: none;
+  user-select: none;
+  width: 15px;
+  padding: 2px;
+  background: #dbc199;
+  border-left: 2px solid #957455;
+}
+.pixel-scroll-thumb {
+  position: relative;
+  flex: 1;
+  border: 1px solid #5d4235;
+  border-radius: 2px;
+  background: #af815d;
+  box-shadow:
+    inset 1px 1px #e5bf8c,
+    inset -1px -1px #805b46;
+}
+.pixel-scroll-thumb::after {
+  content: "";
+  position: absolute;
+  inset: calc(50% - 3px) 1px auto;
+  height: 6px;
+  background: repeating-linear-gradient(to bottom, #70513e 0 1px, transparent 1px 3px);
+}
+.pixel-scroll-thumb:hover,
+.pixel-scroll-thumb:active {
+  background: #c9976d;
+}

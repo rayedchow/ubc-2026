@@ -1,0 +1,246 @@
+.gym-data-tabs {
+  min-width: 0;
+  color: #382e32;
+  font: 500 14px/1.45 var(--body);
+}
+.gym-tab-list {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr 1fr;
+  gap: 3px;
+  border-bottom: 3px solid #584438;
+  margin: 14px 0 12px;
+  padding: 0 1px;
+}
+.gym-tab-list button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #a88b64;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background: #ebd7b2;
+  color: #604c3d;
+  padding: 7px 3px;
+  font: 650 clamp(13px, 1.2vw, 16px) / 1.1 var(--display);
+}
+.gym-tab-list button[data-state="active"] {
+  background: #dfb777;
+  color: #342a24;
+  border-color: #dfb777;
+}
+.gym-data-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.gym-data-table {
+  border-collapse: collapse;
+  width: 100%;
+  line-height: 1.25;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.gym-data-table caption {
+  text-align: left;
+  color: #655844;
+  font: 600 12px/1.4 var(--body);
+  margin: 0 0 7px;
+}
+.gym-data-table th,
+.gym-data-table td {
+  border-bottom: 1px solid #cdb996;
+  padding: 12px 9px;
+  text-align: right;
+  vertical-align: middle;
+  color: #40352f;
+}
+.gym-data-table thead th {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: #665642;
+  background: #f0dcb8;
+  border-top: 1px solid #ccb28b;
+}
+.gym-data-table tr > :first-child {
+  text-align: left;
+}
+.gym-data-table tbody th {
+  font-weight: 650;
+}
+.gym-data-table abbr {
+  text-decoration: none;
+}
+.gym-data-table td:last-child {
+  color: #216854;
+}
+.gym-api-docs > p {
+  font-size: 12px;
+}
+.ledger-empty {
+  padding: 14px 0;
+  color: #665746;
+}
+.gym-api-docs {
+  display: grid;
+  gap: 9px;
+}
+.gym-command {
+  background: #f4e6cb;
+  color: #312d29;
+  border: 2px solid #493b3e;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.command-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #dfc5a3;
+  padding: 4px 7px;
+}
+.command-head h3 {
+  flex: 1;
+  font: 600 14px/1.1 var(--display);
+  color: #3a2e26;
+  margin: 0;
+}
+.command-head span {
+  color: #205345;
+  font: 700 10px/1 monospace;
+}
+.command-head span[data-method="POST"] {
+  color: #733c23;
+}
+.command-head button {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 24px;
+  border: 1px solid #8b7970;
+  border-radius: 2px;
+}
+.gym-command pre {
+  padding: 7px 9px;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: 11px/1.5 monospace;
+  user-select: all;
+}
+.command-status:not(:empty) {
+  display: block;
+  padding: 0 8px 4px;
+  font-size: 11px;
+  color: #205345;
+}
+
+.gym-data-heading,
+.record-pages {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.gym-data-heading h3,
+.room-dialog .gym-data-heading h3,
+.place-body .gym-data-heading h3 {
+  color: #463b34;
+  font: 650 19px/1.2 var(--display);
+  margin: 0;
+}
+.gym-data-heading span,
+.class-samples small,
+.place-body .place-volume {
+  font: 600 12px/1.4 var(--body);
+  color: #665747;
+}
+.attestation-ref code,
+.onchain-records a {
+  overflow-wrap: anywhere;
+  user-select: all;
+  font: 11px/1.4 monospace;
+}
+.onchain-records {
+  padding-left: 0;
+  list-style: none;
+}
+.onchain-records li {
+  padding: 7px 0;
+  border-bottom: 1px solid #cab494;
+}
+.class-samples article {
+  margin-top: 10px;
+  border-left: 3px solid #96724c;
+  padding: 2px 8px;
+  background: #fbebce;
+}
+.class-samples article p {
+  margin: 4px 0;
+}
+.class-samples pre {
+  font: 12px/1.4 monospace;
+  padding: 6px 8px;
+  color: #342b26;
+  background: #e9dbc3;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.interior-place .command-head h3 {
+  color: #3a2e26;
+  font: 600 14px/1.15 var(--display);
+}
+@media (max-width: 900px) {
+  .gym-tab-list button svg {
+    display: none;
+  }
+}
+
+.record-pages button {
+  border: 1px solid #ac9576;
+  background: #f6e5bf;
+  border-radius: 2px;
+  padding: 1px 7px;
+  min-width: 25px;
+  color: #493c36;
+}
+.record-pages button:disabled {
+  opacity: 0.45;
+}
+.record-pages button + button {
+  margin-left: 4px;
+}
+.gym-data-table tbody th {
+  white-space: normal;
+}
+@media (max-width: 480px) {
+  .gym-data-tabs .class-distribution td,
+  .gym-data-tabs .class-distribution th {
+    padding: 10px 8px;
+    font-size: 11px;
+  }
+  .gym-data-tabs .class-distribution thead th {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}
+.create-samples textarea {
+  background: #fff8e7;
+  border: 1px solid #ab9277;
+  color: #3b3230;
+  resize: vertical;
+  width: 100%;
+  padding: 4px 6px;
+}
+
+.gym-source {
+  display: grid;
+  gap: 3px;
+  margin: 12px 0 2px;
+  color: #59483c;
+  font-size: 12px;
+}
+.gym-source a {
+  color: #28574a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
